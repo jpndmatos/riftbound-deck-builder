@@ -9,7 +9,7 @@ import {
   input,
   output,
 } from '@angular/core';
-import { Card, imageUrl } from '../core/models';
+import { Card, Zone, imageUrl } from '../core/models';
 import { DeckStore } from '../core/deck.store';
 import { Icon } from './icon';
 @Component({
@@ -23,19 +23,24 @@ import { Icon } from './icon';
     (cancel)="close.emit()"
     (click)="backdrop($event)"
   >
-    <button
-      class="icon-button dialog-close"
-      type="button"
-      aria-label="Close card details"
-      (click)="close.emit()"
-    >
-      <app-icon name="close" />
-    </button>
+    <header class="dialog-heading">
+      <div>
+        <h2 id="preview-title">{{ card().name }}</h2>
+        <p class="muted">{{ card().code }} / {{ card().type }}</p>
+      </div>
+      <button
+        class="icon-button"
+        type="button"
+        aria-label="Close card details"
+        autofocus
+        (click)="close.emit()"
+      >
+        <app-icon name="close" />
+      </button>
+    </header>
     <div class="preview-layout">
       <img [src]="imageUrl(card(), 600)" [alt]="card().name" width="430" height="600" />
       <div class="preview-copy">
-        <h2 id="preview-title">{{ card().name }}</h2>
-        <p class="muted">{{ card().code }} / {{ card().type }}</p>
         <div class="domain-labels">
           @for (domain of card().domains; track domain) {
             <span class="domain-tag" [attr.data-domain]="domain">{{ domain }}</span>
@@ -63,29 +68,38 @@ import { Icon } from './icon';
         @if (card().banned) {
           <p class="error-text">Banned in Constructed in the recorded rules snapshot.</p>
         }
-        <button
-          class="button primary"
-          type="button"
-          [disabled]="!!store.addReason(card(), 'main')"
-          (click)="store.add(card())"
-        >
-          {{ card().type === 'legend' ? 'Use this legend' : 'Add to deck' }}
-        </button>
-        @if (card().championUnit && card().champion === store.legend()?.champion) {
-          <button class="button" type="button" (click)="store.chooseChampion(card().id)">
-            Set chosen champion
-          </button>
-        }
-        @if (store.addReason(card(), 'main')) {
-          <p class="helper">{{ store.addReason(card(), 'main') }}</p>
-        }
       </div>
     </div>
+    <footer class="preview-actions">
+      <button
+        class="button primary"
+        type="button"
+        [disabled]="!!store.addReason(card(), zone())"
+        (click)="store.add(card(), zone())"
+      >
+        {{
+          card().type === 'legend'
+            ? 'Use this legend'
+            : zone() === 'sideboard'
+              ? 'Add to sideboard'
+              : 'Add to deck'
+        }}
+      </button>
+      @if (card().championUnit && card().champion === store.legend()?.champion) {
+        <button class="button" type="button" (click)="store.chooseChampion(card().id)">
+          Set chosen champion
+        </button>
+      }
+      @if (store.addReason(card(), zone())) {
+        <p class="helper">{{ store.addReason(card(), zone()) }}</p>
+      }
+    </footer>
   </dialog>`,
 })
 export class CardPreview implements AfterViewInit, OnDestroy {
   private trigger: HTMLElement | null = null;
   readonly card = input.required<Card>();
+  readonly zone = input<Zone>('main');
   readonly close = output();
   readonly store = inject(DeckStore);
   readonly imageUrl = imageUrl;
@@ -99,6 +113,14 @@ export class CardPreview implements AfterViewInit, OnDestroy {
     if (this.trigger?.isConnected) this.trigger.focus();
   }
   backdrop(event: MouseEvent): void {
-    if (event.target === this.dialog.nativeElement) this.close.emit();
+    const rect = this.dialog.nativeElement.getBoundingClientRect();
+    if (
+      event.target === this.dialog.nativeElement &&
+      (event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom)
+    )
+      this.close.emit();
   }
 }

@@ -163,7 +163,7 @@
             </div>
           </div>
         </div>
-        <div class="catalog-scroll" tabindex="0" aria-label="Card results">
+        <div class="catalog-scroll" #results tabindex="0" aria-label="Card results">
           @if (!filtered().length) {
             <div class="full-state">
               <app-icon name="search" />
@@ -252,33 +252,15 @@
               }
             </div>
           }
-        </div>
-        <div class="pagination">
-          <span
-            >{{ filtered().length ? (page() - 1) * pageSize + 1 : 0 }} to
-            {{ page() * pageSize > filtered().length ? filtered().length : page() * pageSize }} of
-            {{ filtered().length }}</span
-          >
-          <div>
-            <button
-              class="icon-button"
-              type="button"
-              aria-label="Previous page"
-              [disabled]="page() <= 1"
-              (click)="page.set(page() - 1)"
-            >
-              <app-icon name="left" /></button
-            ><span>{{ page() }} / {{ pageCount() }}</span
-            ><button
-              class="icon-button"
-              type="button"
-              aria-label="Next page"
-              [disabled]="page() >= pageCount()"
-              (click)="page.set(page() + 1)"
-            >
-              <app-icon name="right" />
-            </button>
-          </div>
+          @if (filtered().length) {
+            <div class="catalog-end" #loadMarker>
+              @if (hasMore()) {
+                <button class="button" type="button" (click)="loadMore()">Load more cards</button>
+              } @else {
+                <span>All {{ filtered().length }} matching cards shown</span>
+              }
+            </div>
+          }
         </div>
       </section>
       <app-deck-panel
@@ -304,7 +286,7 @@
   }
 </div>
 @if (preview(); as card) {
-  <app-card-preview [card]="card" (close)="preview.set(null)" />
+  <app-card-preview [card]="card" [zone]="zone()" (close)="preview.set(null)" />
 }
 @if (transfer(); as mode) {
   <app-transfer-dialog [mode]="mode" (close)="transfer.set(null)" (imported)="transfer.set(null)" />

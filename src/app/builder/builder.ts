@@ -2,6 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
+  afterRenderEffect,
+  viewChild,
   computed,
   effect,
   inject,
@@ -60,8 +63,9 @@ export class Builder {
   readonly filtersOpen = signal(false);
   readonly preview = signal<Card | null>(null);
   readonly transfer = signal<'import' | 'export' | null>(null);
-  readonly page = signal(Math.max(1, Number(this.route.snapshot.queryParamMap.get('page')) || 1));
-  readonly pageSize = 24;
+  readonly limit = signal(36);
+  readonly results = viewChild<ElementRef<HTMLElement>>('results');
+  readonly loadMarker = viewChild<ElementRef<HTMLElement>>('loadMarker');
   readonly domains = DOMAINS;
   readonly imageUrl = imageUrl;
   private filterKey = '';
@@ -92,12 +96,11 @@ export class Builder {
         : a.name.localeCompare(b.name),
     );
   });
-  readonly pageCount = computed(() =>
-    Math.max(1, Math.ceil(this.filtered().length / this.pageSize)),
-  );
-  readonly visible = computed(() =>
-    this.filtered().slice((this.page() - 1) * this.pageSize, this.page() * this.pageSize),
-  );
+  readonly visible = computed(() => this.filtered().slice(0, this.limit()));
+  readonly hasMore = computed(() => this.visible().length < this.filtered().length);
+  loadMore(): void {
+    this.limit.update((limit) => Math.min(limit + 36, this.filtered().length));
+  }
   constructor() {
     this.route.queryParamMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
       const values = {
@@ -111,12 +114,10 @@ export class Builder {
       if (JSON.stringify(values) !== JSON.stringify(this.form.getRawValue()))
         this.form.patchValue(values);
       this.view.set(params.get('view') === 'list' ? 'list' : 'grid');
-      this.page.set(Math.max(1, Number(params.get('page')) || 1));
     });
     effect(() => {
       const filter = this.filter(),
-        view = this.view(),
-        page = this.page();
+        view = this.view();
       void this.router.navigate([], {
         relativeTo: this.route,
         replaceUrl: true,
@@ -128,16 +129,44 @@ export class Builder {
           sort: filter.sort === 'name' ? null : filter.sort,
           compatible: filter.compatible ? null : 'false',
           view: view === 'grid' ? null : view,
-          page: page === 1 ? null : page,
+          page: null,
         },
       });
     });
     effect(() => {
       if (this.catalog.state() !== 'ready') return;
       const key = JSON.stringify(this.filter()) + (this.store.legend()?.id ?? '');
-      if (this.filterKey && key !== this.filterKey) this.page.set(1);
+      if (this.filterKey && key !== this.filterKey) this.limit.set(36);
       this.filterKey = key;
-      if (this.page() > this.pageCount()) this.page.set(this.pageCount());
+    });
+    afterRenderEffect(() => {
+      this.filter();
+      this.view();
+      this.store.legend();
+      const root = this.results()?.nativeElement;
+      if (root) root.scrollTop = 0;
+    });
+    afterRenderEffect((onCleanup) => {
+      const root = this.results()?.nativeElement;
+      const marker = this.loadMarker()?.nativeElement;
+      this.visible().length;
+      this.mobileView();
+      if (
+        !root ||
+        !marker ||
+        !this.hasMore() ||
+        !root.clientHeight ||
+        typeof IntersectionObserver === 'undefined'
+      )
+        return;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) this.loadMore();
+        },
+        { root, rootMargin: '500px 0px' },
+      );
+      observer.observe(marker);
+      onCleanup(() => observer.disconnect());
     });
   }
   reset(): void {

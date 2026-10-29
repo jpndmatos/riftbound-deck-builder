@@ -23,6 +23,7 @@ import { Icon } from './icon';
     class="transfer-dialog"
     aria-labelledby="transfer-title"
     (cancel)="close.emit()"
+    (click)="backdrop($event)"
   >
     <div class="dialog-heading">
       <h2 id="transfer-title">{{ mode() === 'import' ? 'Import deck' : 'Export deck' }}</h2>
@@ -30,38 +31,51 @@ import { Icon } from './icon';
         class="icon-button"
         type="button"
         aria-label="Close export or import"
+        autofocus
         (click)="close.emit()"
       >
         <app-icon name="close" />
       </button>
     </div>
-    @if (mode() === 'import') {
-      <p class="muted">Paste a JSON backup or choose an exported file.</p>
-      <label class="file-label"
-        >Choose JSON file<input
-          type="file"
-          accept=".json,application/json"
-          (change)="readFile($event)"
-      /></label>
-    } @else {
-      <div class="segmented" aria-label="Export format">
-        <button type="button" [class.selected]="format() === 'text'" (click)="setFormat('text')">
-          Text list</button
-        ><button type="button" [class.selected]="format() === 'json'" (click)="setFormat('json')">
-          JSON backup
-        </button>
-      </div>
-    }
-    <label class="sr-only" for="transfer-content"
-      >Deck {{ mode() === 'import' ? 'JSON' : 'export' }}</label
-    ><textarea
-      id="transfer-content"
-      [formControl]="content"
-      [readOnly]="mode() === 'export'"
-      spellcheck="false"
-      rows="14"
-    ></textarea>
-    <p class="helper error-text" role="status">{{ error() }}</p>
+    <div class="transfer-body">
+      @if (mode() === 'import') {
+        <p class="muted">Paste a JSON backup or choose an exported file.</p>
+        <label class="file-label"
+          >Choose JSON file<input
+            type="file"
+            accept=".json,application/json"
+            (change)="readFile($event)"
+        /></label>
+      } @else {
+        <div class="segmented" aria-label="Export format">
+          <button
+            type="button"
+            [class.selected]="format() === 'text'"
+            [attr.aria-pressed]="format() === 'text'"
+            (click)="setFormat('text')"
+          >
+            Text list</button
+          ><button
+            type="button"
+            [class.selected]="format() === 'json'"
+            [attr.aria-pressed]="format() === 'json'"
+            (click)="setFormat('json')"
+          >
+            JSON backup
+          </button>
+        </div>
+      }
+      <label class="sr-only" for="transfer-content"
+        >Deck {{ mode() === 'import' ? 'JSON' : 'export' }}</label
+      ><textarea
+        id="transfer-content"
+        [formControl]="content"
+        [readOnly]="mode() === 'export'"
+        spellcheck="false"
+        rows="14"
+      ></textarea>
+      <p class="helper error-text" role="status">{{ error() }}</p>
+    </div>
     <div class="dialog-actions">
       @if (mode() === 'import') {
         <button
@@ -101,6 +115,17 @@ export class TransferDialog implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.dialog.nativeElement.close();
     if (this.trigger?.isConnected) this.trigger.focus();
+  }
+  backdrop(event: MouseEvent): void {
+    const rect = this.dialog.nativeElement.getBoundingClientRect();
+    if (
+      event.target === this.dialog.nativeElement &&
+      (event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom)
+    )
+      this.close.emit();
   }
   setFormat(format: 'text' | 'json'): void {
     this.format.set(format);
