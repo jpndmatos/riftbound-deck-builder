@@ -79,14 +79,27 @@
             }
           </div>
         </fieldset>
-        <div class="filter-fields">
-          <label for="domain-filter">Domain</label
-          ><select id="domain-filter" formControlName="domain">
-            <option value="all">All</option>
+        <fieldset class="domain-filter">
+          <legend>Domain</legend>
+          <div class="domain-options">
+            <label
+              class="domain-choice domain-all"
+              [class.selected]="form.controls.domain.value === 'all'"
+            >
+              <input class="sr-only" type="radio" formControlName="domain" value="all" /><span
+                >All domains</span
+              >
+            </label>
             @for (domain of domains; track domain) {
-              <option [value]="domain">{{ domain }}</option>
-            }</select
-          ><label for="set-filter">Set</label
+              <label class="domain-choice" [class.selected]="form.controls.domain.value === domain">
+                <input class="sr-only" type="radio" formControlName="domain" [value]="domain" />
+                <app-domain-icon [name]="domain" /><span>{{ domain }}</span>
+              </label>
+            }
+          </div>
+        </fieldset>
+        <div class="filter-fields">
+          <label for="set-filter">Set</label
           ><select id="set-filter" formControlName="set">
             <option value="all">All</option>
             @for (set of catalog.data()?.sets; track set.id) {
@@ -208,7 +221,20 @@
                     >
                       {{ card.name }}</button
                     ><span class="card-meta"
-                      >{{ card.type }}
+                      ><span class="card-type"
+                        >{{ card.type }}
+                        @if (card.domains.length) {
+                          <span
+                            class="card-domains"
+                            role="img"
+                            [attr.aria-label]="card.domains.join(', ')"
+                          >
+                            @for (domain of card.domains; track domain) {
+                              <app-domain-icon [name]="domain" />
+                            }
+                          </span>
+                        }
+                      </span>
                       <span>{{
                         card.energy !== null ? card.energy + ' energy' : card.set
                       }}</span></span

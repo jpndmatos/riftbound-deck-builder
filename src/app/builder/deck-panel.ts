@@ -1,3 +1,4 @@
+import { DomainIcon } from '../shared/domain-icon';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,7 +16,7 @@ import { Card, Zone, imageUrl } from '../core/models';
 import { Icon } from '../shared/icon';
 @Component({
   selector: 'app-deck-panel',
-  imports: [Icon, DecimalPipe, ReactiveFormsModule],
+  imports: [DomainIcon, Icon, DecimalPipe, ReactiveFormsModule],
   templateUrl: './deck-panel.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,3 +1,4 @@
+import { DomainIcon } from '../shared/domain-icon';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -23,7 +24,7 @@ import { DeckPanel } from './deck-panel';
 
 @Component({
   selector: 'app-builder',
-  imports: [ReactiveFormsModule, Icon, CardPreview, TransferDialog, DeckPanel],
+  imports: [DomainIcon, ReactiveFormsModule, Icon, CardPreview, TransferDialog, DeckPanel],
   templateUrl: './builder.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

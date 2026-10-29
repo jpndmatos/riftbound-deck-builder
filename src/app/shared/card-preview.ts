@@ -1,3 +1,4 @@
+import { DomainIcon } from './domain-icon';
 import {
   AfterViewInit,
   OnDestroy,
@@ -14,7 +15,7 @@ import { DeckStore } from '../core/deck.store';
 import { Icon } from './icon';
 @Component({
   selector: 'app-card-preview',
-  imports: [Icon],
+  imports: [DomainIcon, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<dialog
     #dialog
@@ -43,7 +44,9 @@ import { Icon } from './icon';
       <div class="preview-copy">
         <div class="domain-labels">
           @for (domain of card().domains; track domain) {
-            <span class="domain-tag" [attr.data-domain]="domain">{{ domain }}</span>
+            <span class="domain-tag" [attr.data-domain]="domain"
+              ><app-domain-icon [name]="domain" />{{ domain }}</span
+            >
           }
         </div>
         <p class="rules-text">{{ card().text }}</p>

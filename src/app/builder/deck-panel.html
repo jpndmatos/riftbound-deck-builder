@@ -64,7 +64,9 @@
     @if (store.legend(); as legend) {
       <div class="deck-domains">
         @for (domain of legend.domains; track domain) {
-          <span class="domain-tag" [attr.data-domain]="domain">{{ domain }}</span>
+          <span class="domain-tag" [attr.data-domain]="domain"
+            ><app-domain-icon [name]="domain" />{{ domain }}</span
+          >
         }
         <span class="muted">Constructed</span>
       </div>
