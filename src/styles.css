@@ -2538,3 +2538,11 @@ textarea {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
+
+.filter-heading {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--panel);
+  flex-shrink: 0;
+}
