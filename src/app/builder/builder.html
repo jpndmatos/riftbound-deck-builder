@@ -125,7 +125,7 @@
               ><input
                 id="card-search"
                 type="search"
-                placeholder="Search cards, text, champion..."
+                placeholder="Search cards…"
                 [formControl]="form.controls.q"
                 autocomplete="off"
               />
@@ -139,7 +139,7 @@
                 <option value="name">Name</option>
                 <option value="energy">Energy</option>
               </select>
-              <div class="view-switch">
+              <div class="view-switch" role="group" aria-label="Card layout">
                 <button
                   class="icon-button"
                   type="button"

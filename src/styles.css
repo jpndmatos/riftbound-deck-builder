@@ -2273,3 +2273,121 @@ input.deck-name {
     padding-block: 6px;
   }
 }
+
+/* Search and browsing options share one control rhythm. */
+.catalog-controls {
+  gap: 12px;
+  padding: 8px var(--panel-gutter);
+}
+.catalog-toolbar {
+  gap: 0;
+  min-height: 40px;
+  border: 1px solid var(--field-border);
+  border-radius: var(--control-radius);
+  background: var(--field);
+}
+.catalog-toolbar:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.catalog-toolbar .search-field input {
+  height: 38px;
+  border: 0;
+  background: var(--clear);
+  border-radius: 0;
+}
+.catalog-toolbar .search-field input:focus-visible {
+  outline: none;
+}
+.catalog-toolbar .search-field > app-icon {
+  top: 11px;
+  width: 16px;
+  height: 16px;
+}
+.catalog-toolbar .filter-toggle {
+  height: 38px;
+  min-height: 38px;
+  width: 40px;
+  min-width: 40px;
+  border: 0;
+  border-right: 1px solid var(--rule);
+  border-radius: 0;
+}
+.catalog-toolbar .filter-toggle[aria-expanded='true'] {
+  background: var(--hover);
+  color: var(--ink);
+}
+.results-toolbar {
+  min-height: 40px;
+  gap: 12px;
+  align-items: center;
+}
+.results-toolbar > span {
+  font-size: 12px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+.results-controls {
+  gap: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--field-border);
+  border-radius: var(--control-radius);
+  background: var(--field);
+}
+.results-controls select {
+  width: 100px;
+  height: 38px;
+  border: 0;
+  border-radius: 0;
+  background: var(--clear);
+}
+.view-switch {
+  gap: 0;
+  border-left: 1px solid var(--rule);
+  padding: 0;
+}
+.view-switch .icon-button {
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  min-height: 38px;
+  border: 0;
+  border-radius: 0;
+}
+.view-switch .icon-button app-icon {
+  width: 16px;
+  height: 16px;
+}
+.results-controls :focus-visible {
+  outline-offset: -3px;
+}
+@media (max-width: 1100px) {
+  .catalog-controls {
+    gap: 8px;
+  }
+  .results-toolbar {
+    width: 100%;
+  }
+}
+@media (max-width: 800px) {
+  .catalog-controls {
+    padding-block: 8px;
+  }
+  .catalog-toolbar .search-field input {
+    height: 44px;
+  }
+  .catalog-toolbar .search-field > app-icon {
+    top: 14px;
+  }
+  .catalog-toolbar .filter-toggle,
+  .view-switch .icon-button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+  }
+  .results-controls select {
+    height: 44px;
+    width: 100px;
+  }
+}
