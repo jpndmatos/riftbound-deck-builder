@@ -52,7 +52,20 @@ const plain = (text) =>
     .trim();
 const sets = new Map();
 const grouped = new Map();
-const fullName = (card) => (card.subtitle ? `${card.name}, ${card.subtitle}` : card.name);
+let previousIds = new Map();
+try {
+  const previous = JSON.parse(await readFile('public/data/cards.json', 'utf8'));
+  previousIds = new Map(previous.cards.map((card) => [`${card.type}:${card.name}`, card.id]));
+} catch {
+  /* A first sync has no catalog to preserve. */
+}
+const fullName = (card) => {
+  const type = card.cardType?.type?.[0]?.id;
+  const champion = card.cardType?.superType?.some((item) => item.id === 'champion');
+  const namedLegend = type === 'legend' && card.name === card.tags?.tags?.[0];
+  // Signature-card subtitles identify their owner, not an extra part of the name.
+  return card.subtitle && (champion || namedLegend) ? `${card.name}, ${card.subtitle}` : card.name;
+};
 const tokenNames = new Set(raw.filter((c) => /-T\d/i.test(c.publicCode || '')).map((c) => c.name));
 for (const c of raw) {
   const type = c.cardType?.type?.[0]?.id;
@@ -73,8 +86,10 @@ for (const c of raw) {
 }
 const cards = [...grouped.values()]
   .map((group) => {
+    const previousId = previousIds.get(`${group[0].cardType.type[0].id}:${fullName(group[0])}`);
     group.sort((a, b) => {
       const rank = (c) =>
+        (c.id === previousId ? -100 : 0) +
         (/\*|\d[a-z]\//i.test(c.publicCode || '') ? 5 : 0) +
         (['showcase', 'alternateart', 'overnumbered'].includes(c.rarity?.value?.id) ? 3 : 0);
       return rank(a) - rank(b) || a.collectorNumber - b.collectorNumber;

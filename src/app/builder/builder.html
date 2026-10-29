@@ -26,12 +26,14 @@
     <button
       type="button"
       [class.selected]="mobileView() === 'cards'"
+      [attr.aria-pressed]="mobileView() === 'cards'"
       (click)="mobileView.set('cards')"
     >
       Cards</button
     ><button
       type="button"
       [class.selected]="mobileView() === 'deck'"
+      [attr.aria-pressed]="mobileView() === 'deck'"
       (click)="mobileView.set('deck')"
     >
       Deck <span>{{ store.total() }}/40</span>
@@ -84,13 +86,13 @@
         <div class="filter-fields">
           <label for="domain-filter">Domain</label
           ><select id="domain-filter" formControlName="domain">
-            <option value="all">Any domain</option>
+            <option value="all">All</option>
             @for (domain of domains; track domain) {
               <option [value]="domain">{{ domain }}</option>
             }</select
           ><label for="set-filter">Set</label
           ><select id="set-filter" formControlName="set">
-            <option value="all">Any set</option>
+            <option value="all">All</option>
             @for (set of catalog.data()?.sets; track set.id) {
               <option [value]="set.id">{{ set.name }}</option>
             }
@@ -302,5 +304,5 @@
   <app-card-preview [card]="card" (close)="preview.set(null)" />
 }
 @if (transfer(); as mode) {
-  <app-transfer-dialog [mode]="mode" (close)="transfer.set(null)" />
+  <app-transfer-dialog [mode]="mode" (close)="transfer.set(null)" (imported)="transfer.set(null)" />
 }

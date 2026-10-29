@@ -67,12 +67,10 @@ export class Builder {
   private filterKey = '';
   readonly types = ['all', 'unit', 'spell', 'gear', 'legend', 'rune', 'battlefield'];
   readonly indexed = computed(() =>
-    this.catalog
-      .cards()
-      .map((card) => ({
-        card,
-        search: `${card.name} ${card.text} ${card.code} ${card.champion ?? ''}`.toLowerCase(),
-      })),
+    this.catalog.cards().map((card) => ({
+      card,
+      search: `${card.name} ${card.text} ${card.code} ${card.champion ?? ''}`.toLowerCase(),
+    })),
   );
   readonly filtered = computed(() => {
     const filter = this.filter(),

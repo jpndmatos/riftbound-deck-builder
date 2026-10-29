@@ -10,6 +10,10 @@ import { Icon } from './shared/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
+  focusWorkspace(event: Event): void {
+    event.preventDefault();
+    document.getElementById('workspace')?.focus();
+  }
   readonly store = inject(DeckStore);
   readonly mode = signal(document.documentElement.dataset['mode'] === 'light' ? 'light' : 'dark');
   toggleTheme(): void {

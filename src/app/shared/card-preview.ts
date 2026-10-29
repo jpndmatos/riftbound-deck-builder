@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  OnDestroy,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -82,14 +83,20 @@ import { Icon } from './icon';
     </div>
   </dialog>`,
 })
-export class CardPreview implements AfterViewInit {
+export class CardPreview implements AfterViewInit, OnDestroy {
+  private trigger: HTMLElement | null = null;
   readonly card = input.required<Card>();
   readonly close = output();
   readonly store = inject(DeckStore);
   readonly imageUrl = imageUrl;
   @ViewChild('dialog', { static: true }) dialog!: ElementRef<HTMLDialogElement>;
   ngAfterViewInit(): void {
+    this.trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     this.dialog.nativeElement.showModal();
+  }
+  ngOnDestroy(): void {
+    this.dialog.nativeElement.close();
+    if (this.trigger?.isConnected) this.trigger.focus();
   }
   backdrop(event: MouseEvent): void {
     if (event.target === this.dialog.nativeElement) this.close.emit();

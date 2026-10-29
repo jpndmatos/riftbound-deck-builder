@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  OnDestroy,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -81,9 +82,11 @@ import { Icon } from './icon';
     </div>
   </dialog>`,
 })
-export class TransferDialog implements AfterViewInit {
+export class TransferDialog implements AfterViewInit, OnDestroy {
+  private trigger: HTMLElement | null = null;
   readonly mode = input<'import' | 'export'>('export');
   readonly close = output();
+  readonly imported = output();
   readonly store = inject(DeckStore);
   readonly content = new FormControl('', { nonNullable: true });
   readonly format = signal<'text' | 'json'>('text');
@@ -91,8 +94,13 @@ export class TransferDialog implements AfterViewInit {
   readonly copied = signal(false);
   @ViewChild('dialog', { static: true }) dialog!: ElementRef<HTMLDialogElement>;
   ngAfterViewInit(): void {
+    this.trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     if (this.mode() === 'export') this.setFormat('text');
     this.dialog.nativeElement.showModal();
+  }
+  ngOnDestroy(): void {
+    this.dialog.nativeElement.close();
+    if (this.trigger?.isConnected) this.trigger.focus();
   }
   setFormat(format: 'text' | 'json'): void {
     this.format.set(format);
@@ -124,7 +132,7 @@ export class TransferDialog implements AfterViewInit {
   importDeck(): void {
     try {
       this.store.replace(parseDeckFile(this.content.value, this.store.catalog.byId()));
-      this.close.emit();
+      this.imported.emit();
     } catch (error) {
       this.error.set(
         error instanceof SyntaxError

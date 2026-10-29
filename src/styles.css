@@ -1484,4 +1484,35 @@ legend {
   }
 }
 
-h1,h2{text-wrap:balance}.saved-no-art{color:var(--ink-soft)}.image-unavailable img{display:none}
+h1,
+h2 {
+  text-wrap: balance;
+}
+.saved-no-art {
+  color: var(--ink-soft);
+}
+.image-unavailable img {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .catalog-toolbar select {
+    width: 96px;
+  }
+  .icon-button,
+  .view-switch .icon-button,
+  .pagination .icon-button,
+  .quantity .icon-button,
+  .card-add-row .icon-button,
+  .deck-heading .icon-button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+  }
+  .button,
+  .text-button,
+  .card-add {
+    min-height: 44px;
+  }
+}

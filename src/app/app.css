@@ -132,3 +132,16 @@ main:focus {
     font-size: 13px;
   }
 }
+
+@media (max-width: 800px) {
+  .header-end .icon-button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+}
+@media (max-width: 360px) {
+  .app-header {
+    gap: 8px;
+  }
+}

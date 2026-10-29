@@ -94,7 +94,11 @@ import { TransferDialog } from '../shared/transfer-dialog';
       }
     </section>
     @if (importing()) {
-      <app-transfer-dialog mode="import" (close)="afterImport()" />
+      <app-transfer-dialog
+        mode="import"
+        (close)="importing.set(false)"
+        (imported)="afterImport()"
+      />
     }`,
 })
 export class Decks {
