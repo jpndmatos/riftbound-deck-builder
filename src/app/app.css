@@ -1,1 +1,134 @@
-:host{display:block;min-height:100dvh}.app-header{width:min(calc(100% - 48px),1640px);margin-inline:auto;display:flex;align-items:center;gap:42px;height:68px;border-bottom:1px solid var(--rule)}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-size:17px;font-weight:500;white-space:nowrap}.brand>app-icon{color:var(--accent);width:22px;height:22px}.brand-sub{color:var(--muted);font-weight:400}.app-header nav{display:flex;align-items:center;gap:26px;height:100%}.app-header nav a{display:flex;align-items:center;gap:6px;height:100%;border-bottom:2px solid var(--clear);text-decoration:none;color:var(--muted);font-size:13px}.app-header nav a:hover{color:var(--ink)}.app-header nav a.current{color:var(--ink);border-bottom-color:var(--accent)}.nav-count{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}.header-end{margin-left:auto;display:flex;align-items:center;gap:16px}.local-label{font-size:11px;color:var(--muted)}main{width:min(calc(100% - 48px),1640px);margin-inline:auto;height:calc(100dvh - 84px);min-height:440px}main:focus{outline:none}@media(max-width:800px){.app-header{width:calc(100% - 24px);height:60px;gap:20px}.brand{font-size:14px;gap:8px}.brand>app-icon{width:18px;height:18px}.brand-sub{display:none}.app-header nav{gap:16px}.app-header nav a{font-size:12px}.header-end{gap:0}.local-label{display:none}.header-end .icon-button{width:32px;min-width:32px}.nav-count{display:none}main{width:calc(100% - 24px);height:calc(100dvh - 72px);min-height:400px}}@media(max-width:360px){.app-header{gap:14px}.app-header nav{gap:12px}.brand{font-size:13px}}
+/* Hallmark | theme: console | genre: modern-minimal | scope: app | shape: app screen | signature: live Riftbound deck list | modes: light+dark */
+/* Hallmark | critique: keep the shell compact and leave the available area to the card workspace. */
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+.app-header {
+  width: min(calc(100% - 48px), 1640px);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 42px;
+  height: 68px;
+  border-bottom: 1px solid var(--rule);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.brand > app-icon {
+  color: var(--accent);
+  width: 22px;
+  height: 22px;
+}
+.brand-sub {
+  color: var(--muted);
+  font-weight: 400;
+}
+.app-header nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  height: 100%;
+}
+.app-header nav a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  border-bottom: 2px solid var(--clear);
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 13px;
+}
+.app-header nav a:hover {
+  color: var(--ink);
+}
+.app-header nav a.current {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+.nav-count {
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.header-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.local-label {
+  font-size: 11px;
+  color: var(--muted);
+}
+main {
+  width: min(calc(100% - 48px), 1640px);
+  margin-inline: auto;
+  height: calc(100dvh - 84px);
+  min-height: 440px;
+}
+main:focus {
+  outline: none;
+}
+@media (max-width: 800px) {
+  .app-header {
+    width: calc(100% - 24px);
+    height: 60px;
+    gap: 20px;
+  }
+  .brand {
+    font-size: 14px;
+    gap: 8px;
+  }
+  .brand > app-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .brand-sub {
+    display: none;
+  }
+  .app-header nav {
+    gap: 16px;
+  }
+  .app-header nav a {
+    font-size: 12px;
+  }
+  .header-end {
+    gap: 0;
+  }
+  .local-label {
+    display: none;
+  }
+  .header-end .icon-button {
+    width: 32px;
+    min-width: 32px;
+  }
+  .nav-count {
+    display: none;
+  }
+  main {
+    width: calc(100% - 24px);
+    height: calc(100dvh - 72px);
+    min-height: 400px;
+  }
+}
+@media (max-width: 360px) {
+  .app-header {
+    gap: 14px;
+  }
+  .app-header nav {
+    gap: 12px;
+  }
+  .brand {
+    font-size: 13px;
+  }
+}

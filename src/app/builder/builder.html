@@ -1,40 +1,306 @@
 <div class="builder-shell">
-  <div class="workspace-toolbar"><div class="workspace-title"><h1>Deck builder</h1><span class="muted">{{ catalog.cards().length || 'Loading' }} cards</span></div><div class="toolbar-actions"><button class="button" type="button" [disabled]="catalog.state() !== 'ready'" (click)="transfer.set('import')"><app-icon name="upload" /><span>Import</span></button><button class="button" type="button" [disabled]="catalog.state() !== 'ready'" (click)="newDeck()"><app-icon name="plus" />New deck</button></div></div>
-  <div class="mobile-workspace-tabs"><button type="button" [class.selected]="mobileView() === 'cards'" (click)="mobileView.set('cards')">Cards</button><button type="button" [class.selected]="mobileView() === 'deck'" (click)="mobileView.set('deck')">Deck <span>{{ store.total() }}/40</span></button></div>
-  @if (catalog.state() === 'error') { <section class="full-state" role="alert"><app-icon name="info" /><h2>Card catalog unavailable</h2><p>Check your connection and load the catalog again. Your saved decks stay on this device.</p><button class="button primary" type="button" (click)="catalog.load()">Try again</button></section> }
-  @else if (catalog.state() === 'loading') { <div class="loading-workspace" role="status" aria-label="Loading card catalog"><p>Loading card catalogâ€¦</p><div class="skeleton-grid">@for (item of [1,2,3,4,5,6,7,8]; track item) { <div class="skeleton-card"></div> }</div></div> }
-  @else {
-  <div class="workspace-grid" [class.mobile-deck]="mobileView() === 'deck'">
-    <form class="filter-panel" [class.filters-open]="filtersOpen()" [formGroup]="form" aria-label="Card filters" (submit)="$event.preventDefault()">
-      <div class="filter-heading"><h2>Filters</h2><button class="text-button" type="button" (click)="reset()">Reset</button></div>
-      <label class="check-label"><input type="checkbox" formControlName="compatible" /><span>Legend domains only</span></label>
-      <fieldset><legend>Card type</legend><div class="type-filters">@for (type of types; track type) { <label [class.selected]="form.controls.type.value === type"><input type="radio" formControlName="type" [value]="type" /><span>{{ type === 'all' ? 'All cards' : type }}</span></label> }</div></fieldset>
-      <div class="filter-fields"><label for="domain-filter">Domain</label><select id="domain-filter" formControlName="domain"><option value="all">All domains</option>@for (domain of domains; track domain) { <option [value]="domain">{{ domain }}</option> }</select><label for="set-filter">Set</label><select id="set-filter" formControlName="set"><option value="all">All sets</option>@for (set of catalog.data()?.sets; track set.id) { <option [value]="set.id">{{ set.name }}</option> }</select></div>
-      <div class="filter-note"><p>Alternate printings are grouped by name.</p><a href="https://playriftbound.com/en-us/card-gallery/" target="_blank" rel="noopener noreferrer">Official card gallery</a><p>Catalog: {{ catalog.data()?.updatedAt }}</p><p>Card art and game text Â© Riot Games. Unofficial fan project.</p></div>
-    </form>
-    <section class="catalog-panel" aria-label="Card browser">
-      <div class="catalog-toolbar"><button class="icon-button filter-toggle" type="button" [attr.aria-expanded]="filtersOpen()" aria-label="Toggle card filters" (click)="filtersOpen.set(!filtersOpen())"><app-icon name="filter" /></button><div class="search-field"><app-icon name="search" /><label class="sr-only" for="card-search">Search cards</label><input id="card-search" type="search" placeholder="Search cards, text, championâ€¦" [formControl]="form.controls.q" autocomplete="off" /></div><label class="sr-only" for="sort-cards">Sort cards</label><select id="sort-cards" [formControl]="form.controls.sort"><option value="name">Name</option><option value="energy">Energy</option></select></div>
-      <div class="results-toolbar"><span role="status">{{ filtered().length }} results</span><div class="view-switch"><button class="icon-button" type="button" aria-label="Grid view" [attr.aria-pressed]="view() === 'grid'" [class.selected]="view() === 'grid'" (click)="view.set('grid')"><app-icon name="grid" /></button><button class="icon-button" type="button" aria-label="List view" [attr.aria-pressed]="view() === 'list'" [class.selected]="view() === 'list'" (click)="view.set('list')"><app-icon name="list" /></button></div></div>
-      <div class="catalog-scroll" tabindex="0" aria-label="Card results">
-        @if (!filtered().length) { <div class="full-state"><app-icon name="search" /><h2>No matching cards</h2><p>Try fewer words or reset the filters.</p><button class="button" type="button" (click)="reset()">Reset filters</button></div> }
-        @else {
-        <div [class.card-grid]="view() === 'grid'" [class.card-list]="view() === 'list'">
-          @for (card of visible(); track card.id) {
-            <article class="catalog-card" [class.in-deck]="quantity(card) > 0" [class.landscape-card]="card.landscape">
-              <button class="card-art" type="button" [attr.aria-label]="'View ' + card.name" (click)="preview.set(card)"><img [src]="imageUrl(card)" [alt]="card.name" width="320" height="447" loading="lazy" decoding="async" (error)="imageError($event)" /><span class="image-fallback">Image unavailable</span>@if (card.banned) { <span class="banned-label">Banned</span> }</button>
-              <div class="card-caption"><button class="card-name" type="button" [title]="card.name" (click)="preview.set(card)">{{ card.name }}</button><span class="card-meta">{{ card.type }} <span>{{ card.energy !== null ? card.energy + ' energy' : card.set }}</span></span></div>
-              <div class="card-add-row">@if (card.type === 'legend') { <button class="card-add" type="button" [class.selected]="store.draft().legend === card.id" (click)="store.chooseLegend(card.id)">{{ store.draft().legend === card.id ? 'Selected legend' : 'Use legend' }}</button> }
-                @else { <button class="icon-button" type="button" [attr.aria-label]="'Remove ' + card.name" [disabled]="quantity(card) === 0" (click)="remove(card)"><app-icon name="minus" /></button><span [attr.aria-label]="quantity(card) + ' copies in deck'">{{ quantity(card) }}</span><button class="icon-button" type="button" [attr.aria-label]="'Add ' + card.name" [disabled]="!!store.addReason(card, zone())" [title]="store.addReason(card, zone()) || 'Add to deck'" (click)="store.add(card, zone())"><app-icon name="plus" /></button> }
-              </div>
-            </article>
-          }
-        </div> }
-      </div>
-      <div class="pagination"><span>{{ filtered().length ? (page()-1)*pageSize+1 : 0 }}â€“{{ page()*pageSize > filtered().length ? filtered().length : page()*pageSize }} of {{ filtered().length }}</span><div><button class="icon-button" type="button" aria-label="Previous page" [disabled]="page() <= 1" (click)="page.set(page()-1)"><app-icon name="left" /></button><span>{{ page() }} / {{ pageCount() }}</span><button class="icon-button" type="button" aria-label="Next page" [disabled]="page() >= pageCount()" (click)="page.set(page()+1)"><app-icon name="right" /></button></div></div>
+  <div class="workspace-toolbar">
+    <div class="workspace-title">
+      <h1>Deck builder</h1>
+      <span class="muted">{{ catalog.cards().length || 'Loading' }} cards</span>
+    </div>
+    <div class="toolbar-actions">
+      <button
+        class="button"
+        type="button"
+        [disabled]="catalog.state() !== 'ready'"
+        (click)="transfer.set('import')"
+      >
+        <app-icon name="upload" /><span>Import</span></button
+      ><button
+        class="button"
+        type="button"
+        [disabled]="catalog.state() !== 'ready'"
+        (click)="newDeck()"
+      >
+        <app-icon name="plus" />New deck
+      </button>
+    </div>
+  </div>
+  <div class="mobile-workspace-tabs">
+    <button
+      type="button"
+      [class.selected]="mobileView() === 'cards'"
+      (click)="mobileView.set('cards')"
+    >
+      Cards</button
+    ><button
+      type="button"
+      [class.selected]="mobileView() === 'deck'"
+      (click)="mobileView.set('deck')"
+    >
+      Deck <span>{{ store.total() }}/40</span>
+    </button>
+  </div>
+  @if (catalog.state() === 'error') {
+    <section class="full-state" role="alert">
+      <app-icon name="info" />
+      <h2>Card catalog unavailable</h2>
+      <p>Check your connection and load the catalog again. Your saved decks stay on this device.</p>
+      <button class="button primary" type="button" (click)="catalog.load()">Try again</button>
     </section>
-    <app-deck-panel [zone]="zone()" (zoneChange)="selectZone($event)" (preview)="preview.set($event)" (export)="transfer.set('export')" />
-  </div> }
-  @if (store.notice()) { <div class="inline-notice" role="status"><span>{{ store.notice() }}</span><button class="icon-button" type="button" aria-label="Dismiss notice" (click)="store.notice.set('')"><app-icon name="close" /></button></div> }
+  } @else if (catalog.state() === 'loading') {
+    <div class="loading-workspace" role="status" aria-label="Loading card catalog">
+      <p>Loading card catalog...</p>
+      <div class="skeleton-grid">
+        @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track item) {
+          <div class="skeleton-card"></div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="workspace-grid" [class.mobile-deck]="mobileView() === 'deck'">
+      <form
+        class="filter-panel"
+        [class.filters-open]="filtersOpen()"
+        [formGroup]="form"
+        aria-label="Card filters"
+        (submit)="$event.preventDefault()"
+      >
+        <div class="filter-heading">
+          <h2>Filters</h2>
+          <button class="text-button" type="button" (click)="reset()">Reset</button>
+        </div>
+        <label class="check-label"
+          ><input type="checkbox" formControlName="compatible" /><span>Match legend</span></label
+        >
+        <fieldset>
+          <legend>Card type</legend>
+          <div class="type-filters">
+            @for (type of types; track type) {
+              <label [class.selected]="form.controls.type.value === type"
+                ><input type="radio" formControlName="type" [value]="type" /><span>{{
+                  type === 'all' ? 'All cards' : type
+                }}</span></label
+              >
+            }
+          </div>
+        </fieldset>
+        <div class="filter-fields">
+          <label for="domain-filter">Domain</label
+          ><select id="domain-filter" formControlName="domain">
+            <option value="all">Any domain</option>
+            @for (domain of domains; track domain) {
+              <option [value]="domain">{{ domain }}</option>
+            }</select
+          ><label for="set-filter">Set</label
+          ><select id="set-filter" formControlName="set">
+            <option value="all">Any set</option>
+            @for (set of catalog.data()?.sets; track set.id) {
+              <option [value]="set.id">{{ set.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="filter-note">
+          <p>Alternate printings are grouped by name.</p>
+          <a
+            href="https://playriftbound.com/en-us/card-gallery/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Official card gallery</a
+          >
+          <p>Catalog: {{ catalog.data()?.updatedAt }}</p>
+          <p>Card art and game text © Riot Games. Unofficial fan project.</p>
+        </div>
+      </form>
+      <section class="catalog-panel" aria-label="Card browser">
+        <div class="catalog-toolbar">
+          <button
+            class="icon-button filter-toggle"
+            type="button"
+            [attr.aria-expanded]="filtersOpen()"
+            aria-label="Toggle card filters"
+            (click)="filtersOpen.set(!filtersOpen())"
+          >
+            <app-icon name="filter" />
+          </button>
+          <div class="search-field">
+            <app-icon name="search" /><label class="sr-only" for="card-search">Search cards</label
+            ><input
+              id="card-search"
+              type="search"
+              placeholder="Search cards, text, champion..."
+              [formControl]="form.controls.q"
+              autocomplete="off"
+            />
+          </div>
+          <label class="sr-only" for="sort-cards">Sort cards</label
+          ><select id="sort-cards" [formControl]="form.controls.sort">
+            <option value="name">Name</option>
+            <option value="energy">Energy</option>
+          </select>
+        </div>
+        <div class="results-toolbar">
+          <span role="status">{{ filtered().length }} results</span>
+          <div class="view-switch">
+            <button
+              class="icon-button"
+              type="button"
+              aria-label="Grid view"
+              [attr.aria-pressed]="view() === 'grid'"
+              [class.selected]="view() === 'grid'"
+              (click)="view.set('grid')"
+            >
+              <app-icon name="grid" /></button
+            ><button
+              class="icon-button"
+              type="button"
+              aria-label="List view"
+              [attr.aria-pressed]="view() === 'list'"
+              [class.selected]="view() === 'list'"
+              (click)="view.set('list')"
+            >
+              <app-icon name="list" />
+            </button>
+          </div>
+        </div>
+        <div class="catalog-scroll" tabindex="0" aria-label="Card results">
+          @if (!filtered().length) {
+            <div class="full-state">
+              <app-icon name="search" />
+              <h2>No matching cards</h2>
+              <p>Try fewer words or reset the filters.</p>
+              <button class="button" type="button" (click)="reset()">Reset filters</button>
+            </div>
+          } @else {
+            <div [class.card-grid]="view() === 'grid'" [class.card-list]="view() === 'list'">
+              @for (card of visible(); track card.id) {
+                <article
+                  class="catalog-card"
+                  [class.in-deck]="quantity(card) > 0"
+                  [class.landscape-card]="card.landscape"
+                >
+                  <button
+                    class="card-art"
+                    type="button"
+                    [attr.aria-label]="'View ' + card.name"
+                    (click)="preview.set(card)"
+                  >
+                    <img
+                      [src]="imageUrl(card)"
+                      [alt]="card.name"
+                      width="320"
+                      height="447"
+                      loading="lazy"
+                      decoding="async"
+                      (error)="imageError($event)"
+                    /><span class="image-fallback">Image unavailable</span>
+                    @if (card.banned) {
+                      <span class="banned-label">Banned</span>
+                    }
+                  </button>
+                  <div class="card-caption">
+                    <button
+                      class="card-name"
+                      type="button"
+                      [title]="card.name"
+                      (click)="preview.set(card)"
+                    >
+                      {{ card.name }}</button
+                    ><span class="card-meta"
+                      >{{ card.type }}
+                      <span>{{
+                        card.energy !== null ? card.energy + ' energy' : card.set
+                      }}</span></span
+                    >
+                  </div>
+                  <div class="card-add-row">
+                    @if (card.type === 'legend') {
+                      <button
+                        class="card-add"
+                        type="button"
+                        [class.selected]="store.draft().legend === card.id"
+                        (click)="store.chooseLegend(card.id)"
+                      >
+                        {{ store.draft().legend === card.id ? 'Selected legend' : 'Use legend' }}
+                      </button>
+                    } @else {
+                      <button
+                        class="icon-button"
+                        type="button"
+                        [attr.aria-label]="'Remove ' + card.name"
+                        [disabled]="quantity(card) === 0"
+                        (click)="remove(card)"
+                      >
+                        <app-icon name="minus" /></button
+                      ><span [attr.aria-label]="quantity(card) + ' copies in deck'">{{
+                        quantity(card)
+                      }}</span
+                      ><button
+                        class="icon-button"
+                        type="button"
+                        [attr.aria-label]="'Add ' + card.name"
+                        [disabled]="!!store.addReason(card, zone())"
+                        [title]="store.addReason(card, zone()) || 'Add to deck'"
+                        (click)="store.add(card, zone())"
+                      >
+                        <app-icon name="plus" />
+                      </button>
+                    }
+                  </div>
+                </article>
+              }
+            </div>
+          }
+        </div>
+        <div class="pagination">
+          <span
+            >{{ filtered().length ? (page() - 1) * pageSize + 1 : 0 }} to
+            {{ page() * pageSize > filtered().length ? filtered().length : page() * pageSize }} of
+            {{ filtered().length }}</span
+          >
+          <div>
+            <button
+              class="icon-button"
+              type="button"
+              aria-label="Previous page"
+              [disabled]="page() <= 1"
+              (click)="page.set(page() - 1)"
+            >
+              <app-icon name="left" /></button
+            ><span>{{ page() }} / {{ pageCount() }}</span
+            ><button
+              class="icon-button"
+              type="button"
+              aria-label="Next page"
+              [disabled]="page() >= pageCount()"
+              (click)="page.set(page() + 1)"
+            >
+              <app-icon name="right" />
+            </button>
+          </div>
+        </div>
+      </section>
+      <app-deck-panel
+        [zone]="zone()"
+        (zoneChange)="selectZone($event)"
+        (preview)="preview.set($event)"
+        (export)="transfer.set('export')"
+      />
+    </div>
+  }
+  @if (store.notice()) {
+    <div class="inline-notice" role="status">
+      <span>{{ store.notice() }}</span
+      ><button
+        class="icon-button"
+        type="button"
+        aria-label="Dismiss notice"
+        (click)="store.notice.set('')"
+      >
+        <app-icon name="close" />
+      </button>
+    </div>
+  }
 </div>
-@if (preview(); as card) { <app-card-preview [card]="card" (close)="preview.set(null)" /> }
-@if (transfer(); as mode) { <app-transfer-dialog [mode]="mode" (close)="transfer.set(null)" /> }
+@if (preview(); as card) {
+  <app-card-preview [card]="card" (close)="preview.set(null)" />
+}
+@if (transfer(); as mode) {
+  <app-transfer-dialog [mode]="mode" (close)="transfer.set(null)" />
+}

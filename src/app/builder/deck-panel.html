@@ -1,25 +1,206 @@
 <aside class="deck-panel" aria-label="Current deck">
-  <div class="deck-heading"><div><label class="sr-only" for="deck-name">Deck name</label><input id="deck-name" class="deck-name" [value]="store.draft().name" maxlength="80" (change)="rename($event)" /><span class="draft-label">{{ store.dirty() ? 'Working draft' : 'Saved deck' }}</span></div>
-    <div class="compact-actions"><button class="icon-button" type="button" aria-label="Undo last deck change" title="Undo" [disabled]="!store.canUndo()" (click)="store.undo()"><app-icon name="undo" /></button><button class="icon-button" type="button" aria-label="Redo deck change" title="Redo" [disabled]="!store.canRedo()" (click)="store.redo()"><app-icon name="redo" /></button></div>
+  <div class="deck-heading">
+    <div>
+      <label class="sr-only" for="deck-name">Deck name</label
+      ><input
+        id="deck-name"
+        class="deck-name"
+        [value]="store.draft().name"
+        maxlength="80"
+        (change)="rename($event)"
+      /><span class="draft-label">{{ store.dirty() ? 'Working draft' : 'Saved deck' }}</span>
+    </div>
+    <div class="compact-actions">
+      <button
+        class="icon-button"
+        type="button"
+        aria-label="Undo last deck change"
+        title="Undo"
+        [disabled]="!store.canUndo()"
+        (click)="store.undo()"
+      >
+        <app-icon name="undo" /></button
+      ><button
+        class="icon-button"
+        type="button"
+        aria-label="Redo deck change"
+        title="Redo"
+        [disabled]="!store.canRedo()"
+        (click)="store.redo()"
+      >
+        <app-icon name="redo" />
+      </button>
+    </div>
   </div>
   <div class="deck-scroll">
     <div class="deck-identity">
-      @if (store.legend(); as legend) { <button class="legend-art" type="button" (click)="preview.emit(legend)" [attr.aria-label]="'View ' + legend.name"><img [src]="imageUrl(legend, 160)" [alt]="legend.name" width="64" height="88" /></button> }
-      <div class="identity-fields"><label for="legend-select">Legend</label><select id="legend-select" [value]="store.draft().legend ?? ''" (change)="chooseLegend($event)"><option value="">Choose a legend</option>@for (legend of store.catalog.legends(); track legend.id) { <option [value]="legend.id">{{ legend.champion }} / {{ legend.name }}</option> }</select>
-      <label for="champion-select">Chosen champion</label><select id="champion-select" [disabled]="!store.legend()" [value]="store.draft().champion ?? ''" (change)="chooseChampion($event)"><option value="">Choose a champion</option>@for (champion of store.champions(); track champion.id) { <option [value]="champion.id">{{ champion.name }}</option> }</select></div>
+      @if (store.legend(); as legend) {
+        <button
+          class="legend-art"
+          type="button"
+          (click)="preview.emit(legend)"
+          [attr.aria-label]="'View ' + legend.name"
+        >
+          <img [src]="imageUrl(legend, 160)" [alt]="legend.name" width="64" height="88" />
+        </button>
+      }
+      <div class="identity-fields">
+        <label for="legend-select">Legend</label
+        ><select id="legend-select" [formControl]="legendControl">
+          <option value="">Choose a legend</option>
+          @for (legend of store.catalog.legends(); track legend.id) {
+            <option [value]="legend.id">{{ legend.champion }} / {{ legend.name }}</option>
+          }
+        </select>
+        <label for="champion-select">Chosen champion</label
+        ><select id="champion-select" [formControl]="championControl">
+          <option value="">Choose a champion</option>
+          @for (champion of store.champions(); track champion.id) {
+            <option [value]="champion.id">{{ champion.name }}</option>
+          }
+        </select>
+      </div>
     </div>
-    @if (store.legend(); as legend) { <div class="deck-domains">@for (domain of legend.domains; track domain) { <span class="domain-tag" [attr.data-domain]="domain">{{ domain }}</span> }<span class="muted">Constructed</span></div> }
-    <div class="zone-tabs" aria-label="Deck sections">@for (tab of zones; track tab.id) { <button type="button" [class.selected]="zone() === tab.id" [attr.aria-pressed]="zone() === tab.id" (click)="zoneChange.emit(tab.id)">{{ tab.label }}<span>{{ store.count(tab.id) }}/{{ tab.max }}</span></button> }</div>
+    @if (store.legend(); as legend) {
+      <div class="deck-domains">
+        @for (domain of legend.domains; track domain) {
+          <span class="domain-tag" [attr.data-domain]="domain">{{ domain }}</span>
+        }
+        <span class="muted">Constructed</span>
+      </div>
+    }
+    <div class="zone-tabs" aria-label="Deck sections">
+      @for (tab of zones; track tab.id) {
+        <button
+          type="button"
+          [class.selected]="zone() === tab.id"
+          [attr.aria-pressed]="zone() === tab.id"
+          (click)="zoneChange.emit(tab.id)"
+        >
+          {{ tab.label }}<span>{{ store.count(tab.id) }}/{{ tab.max }}</span>
+        </button>
+      }
+    </div>
     <div class="deck-rows" aria-live="polite" aria-relevant="additions removals">
       @for (row of rows(); track row.card.id) {
-        <div class="deck-row"><span class="energy-value" [title]="'Energy cost ' + (row.card.energy ?? 0)">{{ row.card.energy ?? 'â€”' }}</span><button class="deck-row-name" type="button" (click)="preview.emit(row.card)" [title]="row.card.name">{{ row.card.name }}@if (store.draft().champion === row.card.id && zone() === 'main') { <span class="chosen-label">Chosen</span> }</button>
-          <div class="quantity"><button class="icon-button" type="button" [attr.aria-label]="'Remove one ' + row.card.name" (click)="store.remove(row.card, zone())"><app-icon name="minus" /></button><span>{{ row.quantity }}</span><button class="icon-button" type="button" [attr.aria-label]="'Add one ' + row.card.name" [disabled]="!!store.addReason(row.card, zone())" [title]="store.addReason(row.card, zone()) || 'Add one'" (click)="store.add(row.card, zone())"><app-icon name="plus" /></button></div>
+        <div class="deck-row">
+          <span class="energy-value" [title]="'Energy cost ' + (row.card.energy ?? 0)">{{
+            row.card.energy ?? 'n/a'
+          }}</span
+          ><button
+            class="deck-row-name"
+            type="button"
+            (click)="preview.emit(row.card)"
+            [title]="row.card.name"
+          >
+            {{ row.card.name }}
+            @if (store.draft().champion === row.card.id && zone() === 'main') {
+              <span class="chosen-label">Chosen</span>
+            }
+          </button>
+          <div class="quantity">
+            <button
+              class="icon-button"
+              type="button"
+              [attr.aria-label]="'Remove one ' + row.card.name"
+              (click)="store.remove(row.card, zone())"
+            >
+              <app-icon name="minus" /></button
+            ><span>{{ row.quantity }}</span
+            ><button
+              class="icon-button"
+              type="button"
+              [attr.aria-label]="'Add one ' + row.card.name"
+              [disabled]="!!store.addReason(row.card, zone())"
+              [title]="store.addReason(row.card, zone()) || 'Add one'"
+              (click)="store.add(row.card, zone())"
+            >
+              <app-icon name="plus" />
+            </button>
+          </div>
         </div>
-      } @empty { <div class="empty-section"><p>No cards in this section.</p><span>Use the card browser to add some.</span></div> }
+      } @empty {
+        <div class="empty-section">
+          <p>No cards in this section.</p>
+          <span>Use the card browser to add some.</span>
+        </div>
+      }
     </div>
-    <section class="curve-section" aria-labelledby="curve-title"><div class="section-label"><h3 id="curve-title">Energy curve</h3><span>{{ store.average() | number:'1.1-1' }} average</span></div><div class="energy-chart" role="img" [attr.aria-label]="'Energy cost distribution: ' + store.curve().join(', ')">@for (value of store.curve(); track $index) { <div class="curve-column"><span class="curve-value">{{ value || '' }}</span><div class="curve-well"><span class="curve-bar" [style.transform]="'scaleY(' + value / maxCurve() + ')' "></span></div><span>{{ $index === 7 ? '7+' : $index }}</span></div> }</div></section>
-    <details class="checks"><summary><span>Deck checks</span><span [class.ready]="!store.issues().length">{{ store.issues().length ? store.issues().length + ' to review' : 'All checks passed' }}</span></summary><ul>@for (check of store.checks(); track check.id) { <li [class.passed]="check.pass"><app-icon [name]="check.pass ? 'check' : 'info'" /><div><span>{{ check.label }}</span><p>{{ check.detail }}</p></div></li> }</ul><p class="helper">Basic Constructed checks. Card-specific exceptions may require review. <a href="https://playriftbound.com/en-us/rules-hub/" target="_blank" rel="noopener noreferrer">Official rules</a></p></details>
-    <details class="notes"><summary>Deck notes</summary><label class="sr-only" for="deck-notes">Deck notes</label><textarea id="deck-notes" rows="4" maxlength="4000" [value]="store.draft().notes" (change)="notes($event)" placeholder="Matchups, card choices, changes to tryâ€¦"></textarea></details>
+    <section class="curve-section" aria-labelledby="curve-title">
+      <div class="section-label">
+        <h3 id="curve-title">Energy curve</h3>
+        <span>{{ store.average() | number: '1.1-1' }} average</span>
+      </div>
+      <div
+        class="energy-chart"
+        role="img"
+        [attr.aria-label]="'Energy cost distribution: ' + store.curve().join(', ')"
+      >
+        @for (value of store.curve(); track $index) {
+          <div class="curve-column">
+            <span class="curve-value">{{ value || '' }}</span>
+            <div class="curve-well">
+              <span
+                class="curve-bar"
+                [style.transform]="'scaleY(' + value / maxCurve() + ')'"
+              ></span>
+            </div>
+            <span>{{ $index === 7 ? '7+' : $index }}</span>
+          </div>
+        }
+      </div>
+    </section>
+    <details class="checks">
+      <summary>
+        <span>Deck checks</span
+        ><span [class.ready]="!store.issues().length">{{
+          store.issues().length ? store.issues().length + ' to review' : 'All checks passed'
+        }}</span>
+      </summary>
+      <ul>
+        @for (check of store.checks(); track check.id) {
+          <li [class.passed]="check.pass">
+            <app-icon [name]="check.pass ? 'check' : 'info'" />
+            <div>
+              <span>{{ check.label }}</span>
+              <p>{{ check.detail }}</p>
+            </div>
+          </li>
+        }
+      </ul>
+      <p class="helper">
+        Basic Constructed checks. Card-specific exceptions may require review.
+        <a
+          href="https://playriftbound.com/en-us/rules-hub/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Official rules</a
+        >
+      </p>
+    </details>
+    <details class="notes">
+      <summary>Deck notes</summary>
+      <label class="sr-only" for="deck-notes">Deck notes</label
+      ><textarea
+        id="deck-notes"
+        rows="4"
+        maxlength="4000"
+        [value]="store.draft().notes"
+        (change)="notes($event)"
+        placeholder="Matchups, card choices, changes to try..."
+      ></textarea>
+    </details>
   </div>
-  <div class="deck-footer"><button class="button" type="button" (click)="export.emit()"><app-icon name="download" />Export</button><button class="button primary" type="button" [disabled]="!store.dirty()" (click)="store.save()"><app-icon name="save" />{{ store.dirty() ? 'Save deck' : 'Saved' }}</button></div>
+  <div class="deck-footer">
+    <button class="button" type="button" (click)="export.emit()">
+      <app-icon name="download" />Export</button
+    ><button
+      class="button primary"
+      type="button"
+      [disabled]="!store.dirty()"
+      (click)="store.save()"
+    >
+      <app-icon name="save" />{{ store.dirty() ? 'Save deck' : 'Saved' }}
+    </button>
+  </div>
 </aside>

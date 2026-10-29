@@ -1,2 +1,58 @@
-:root{--paper:#101315;--surface:#191d20;--panel:#15191c;--field:#111619;--ink:#ecebe6;--ink-soft:#cfceca;--muted:#a3aaa9;--rule:#333b3f;--rule-subtle:#2b3337;--rule-strong:#59676d;--field-border:#68777b;--accent:#d6b56d;--accent-hover:#e4c583;--accent-ink:#251e0f;--focus:#e7c273;--hover:#2a3236;--disabled-ink:#929b9e;--disabled-bg:#20272b;--art-bed:#202529;--bad:#ed9b91;--bad-bg:#3f2525;--ok:#96c6a9;--curve-bg:#242b2f;--notice-bg:#30302a;--scrim:rgb(3 7 9 / 78%);--clear:transparent;--selection:#51482c;--font-body:'Poppins',sans-serif}
-[data-mode="light"]{--paper:#f2f1ed;--surface:#faf9f5;--panel:#edede7;--field:#faf9f5;--ink:#242c2e;--ink-soft:#414b4e;--muted:#616d70;--rule:#d0d3cb;--rule-subtle:#dde0d8;--rule-strong:#929e9e;--field-border:#7c898b;--accent:#8b631b;--accent-hover:#77520f;--accent-ink:#fff8e8;--focus:#906218;--hover:#e3e5dd;--disabled-ink:#6c7778;--disabled-bg:#e2e5df;--art-bed:#d9dcd6;--bad:#a13429;--bad-bg:#f8e1dc;--ok:#306e4d;--curve-bg:#dfe3d9;--notice-bg:#ede4ca;--scrim:rgb(22 28 30 / 60%);--selection:#e0ce99}
+:root {
+  --paper: #101315;
+  --surface: #191d20;
+  --panel: #15191c;
+  --field: #111619;
+  --ink: #ecebe6;
+  --ink-soft: #cfceca;
+  --muted: #a3aaa9;
+  --rule: #333b3f;
+  --rule-subtle: #2b3337;
+  --rule-strong: #59676d;
+  --field-border: #68777b;
+  --accent: #d6b56d;
+  --accent-hover: #e4c583;
+  --accent-ink: #251e0f;
+  --focus: #e7c273;
+  --hover: #2a3236;
+  --disabled-ink: #b9c1c3;
+  --disabled-bg: #20272b;
+  --art-bed: #202529;
+  --bad: #ed9b91;
+  --bad-bg: #3f2525;
+  --ok: #96c6a9;
+  --curve-bg: #242b2f;
+  --notice-bg: #30302a;
+  --scrim: rgb(3 7 9 / 78%);
+  --clear: transparent;
+  --selection: #51482c;
+  --font-body: 'Poppins', sans-serif;
+}
+[data-mode='light'] {
+  --paper: #f2f1ed;
+  --surface: #faf9f5;
+  --panel: #edede7;
+  --field: #faf9f5;
+  --ink: #242c2e;
+  --ink-soft: #414b4e;
+  --muted: #616d70;
+  --rule: #d0d3cb;
+  --rule-subtle: #dde0d8;
+  --rule-strong: #929e9e;
+  --field-border: #7c898b;
+  --accent: #8b631b;
+  --accent-hover: #77520f;
+  --accent-ink: #fff8e8;
+  --focus: #906218;
+  --hover: #e3e5dd;
+  --disabled-ink: #344143;
+  --disabled-bg: #e2e5df;
+  --art-bed: #d9dcd6;
+  --bad: #a13429;
+  --bad-bg: #f8e1dc;
+  --ok: #306e4d;
+  --curve-bg: #dfe3d9;
+  --notice-bg: #ede4ca;
+  --scrim: rgb(22 28 30 / 60%);
+  --selection: #e0ce99;
+}
