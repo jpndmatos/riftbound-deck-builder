@@ -1837,7 +1837,7 @@ app-decks {
   gap: 6px;
 }
 .results-controls select {
-  width: 88px;
+  width: 100px;
   height: 34px;
 }
 .catalog-scroll {
