@@ -145,3 +145,43 @@ main:focus {
     gap: 8px;
   }
 }
+
+/* The shell owns the viewport; each workspace owns its scrolling. */
+:host {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  min-height: 0;
+  overflow: clip;
+  padding-top: env(safe-area-inset-top);
+  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+}
+.app-header {
+  width: 100%;
+  flex: 0 0 60px;
+  height: 60px;
+  padding-inline: 20px;
+}
+main {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  flex: 1;
+  overflow: clip;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@media (max-width: 800px) {
+  .app-header {
+    flex-basis: 54px;
+    height: 54px;
+    padding-inline: 12px;
+  }
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .app-header {
+    flex-basis: 48px;
+    height: 48px;
+  }
+}

@@ -61,12 +61,22 @@
         class="filter-panel"
         [class.filters-open]="filtersOpen()"
         [formGroup]="form"
+        id="card-filters"
         aria-label="Card filters"
+        (keydown.escape)="filtersOpen.set(false)"
         (submit)="$event.preventDefault()"
       >
         <div class="filter-heading">
           <h2>Filters</h2>
           <button class="text-button" type="button" (click)="reset()">Reset</button>
+          <button
+            class="icon-button filter-close"
+            type="button"
+            aria-label="Close card filters"
+            (click)="filtersOpen.set(false)"
+          >
+            <app-icon name="close" />
+          </button>
         </div>
         <label class="check-label"
           ><input type="checkbox" formControlName="compatible" /><span>Match legend</span></label
@@ -117,6 +127,7 @@
             type="button"
             [attr.aria-expanded]="filtersOpen()"
             aria-label="Toggle card filters"
+            aria-controls="card-filters"
             (click)="filtersOpen.set(!filtersOpen())"
           >
             <app-icon name="filter" />
@@ -131,34 +142,36 @@
               autocomplete="off"
             />
           </div>
-          <label class="sr-only" for="sort-cards">Sort cards</label
-          ><select id="sort-cards" [formControl]="form.controls.sort">
-            <option value="name">Name</option>
-            <option value="energy">Energy</option>
-          </select>
         </div>
         <div class="results-toolbar">
           <span role="status">{{ filtered().length }} results</span>
-          <div class="view-switch">
-            <button
-              class="icon-button"
-              type="button"
-              aria-label="Grid view"
-              [attr.aria-pressed]="view() === 'grid'"
-              [class.selected]="view() === 'grid'"
-              (click)="view.set('grid')"
-            >
-              <app-icon name="grid" /></button
-            ><button
-              class="icon-button"
-              type="button"
-              aria-label="List view"
-              [attr.aria-pressed]="view() === 'list'"
-              [class.selected]="view() === 'list'"
-              (click)="view.set('list')"
-            >
-              <app-icon name="list" />
-            </button>
+          <div class="results-controls">
+            <label class="sr-only" for="sort-cards">Sort cards</label
+            ><select id="sort-cards" [formControl]="form.controls.sort">
+              <option value="name">Name</option>
+              <option value="energy">Energy</option>
+            </select>
+            <div class="view-switch">
+              <button
+                class="icon-button"
+                type="button"
+                aria-label="Grid view"
+                [attr.aria-pressed]="view() === 'grid'"
+                [class.selected]="view() === 'grid'"
+                (click)="view.set('grid')"
+              >
+                <app-icon name="grid" /></button
+              ><button
+                class="icon-button"
+                type="button"
+                aria-label="List view"
+                [attr.aria-pressed]="view() === 'list'"
+                [class.selected]="view() === 'list'"
+                (click)="view.set('list')"
+              >
+                <app-icon name="list" />
+              </button>
+            </div>
           </div>
         </div>
         <div class="catalog-scroll" tabindex="0" aria-label="Card results">
