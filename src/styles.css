@@ -2546,3 +2546,15 @@ textarea {
   background: var(--panel);
   flex-shrink: 0;
 }
+
+.filter-panel {
+  padding-top: 0;
+}
+.filter-heading {
+  min-height: 44px;
+}
+@media (max-width: 800px) {
+  .filter-heading {
+    min-height: 52px;
+  }
+}
