@@ -29,9 +29,9 @@ const paths: Record<string, string> = {
   selector: 'app-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template:
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path [attr.d]="path()" /></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path [attr.d]="path()" /></svg>',
   styles:
-    ':host{display:inline-flex;width:18px;height:18px;flex-shrink:0}svg{width:100%;height:100%}',
+    ':host{display:inline-flex;width:var(--icon-size);height:var(--icon-size);flex-shrink:0;align-items:center;justify-content:center;line-height:0;vertical-align:middle}svg{display:block;width:100%;height:100%;stroke-width:var(--icon-stroke)}',
 })
 export class Icon {
   readonly name = input('cards');

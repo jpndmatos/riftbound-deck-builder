@@ -46,19 +46,23 @@
       }
       <div class="identity-fields">
         <label for="legend-select">Legend</label
-        ><select id="legend-select" [formControl]="legendControl">
-          <option value="">Choose a legend</option>
-          @for (legend of store.catalog.legends(); track legend.id) {
-            <option [value]="legend.id">{{ legend.champion }} / {{ legend.name }}</option>
-          }
-        </select>
+        ><span class="select-field"
+          ><select id="legend-select" [formControl]="legendControl">
+            <option value="">Choose a legend</option>
+            @for (legend of store.catalog.legends(); track legend.id) {
+              <option [value]="legend.id">{{ legend.champion }} / {{ legend.name }}</option>
+            }</select
+          ><app-icon class="select-chevron" name="down"
+        /></span>
         <label for="champion-select">Chosen champion</label
-        ><select id="champion-select" [formControl]="championControl">
-          <option value="">Choose a champion</option>
-          @for (champion of store.champions(); track champion.id) {
-            <option [value]="champion.id">{{ champion.name }}</option>
-          }
-        </select>
+        ><span class="select-field"
+          ><select id="champion-select" [formControl]="championControl">
+            <option value="">Choose a champion</option>
+            @for (champion of store.champions(); track champion.id) {
+              <option [value]="champion.id">{{ champion.name }}</option>
+            }</select
+          ><app-icon class="select-chevron" name="down"
+        /></span>
       </div>
     </div>
     @if (store.legend(); as legend) {
@@ -158,6 +162,7 @@
         ><span [class.ready]="!store.issues().length">{{
           store.issues().length ? store.issues().length + ' to review' : 'All checks passed'
         }}</span>
+        <app-icon class="details-chevron" name="down" />
       </summary>
       <ul>
         @for (check of store.checks(); track check.id) {
@@ -181,7 +186,7 @@
       </p>
     </details>
     <details class="notes">
-      <summary>Deck notes</summary>
+      <summary>Deck notes<app-icon class="details-chevron" name="down" /></summary>
       <label class="sr-only" for="deck-notes">Deck notes</label
       ><textarea
         id="deck-notes"

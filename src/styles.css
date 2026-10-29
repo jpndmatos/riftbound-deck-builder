@@ -286,8 +286,8 @@ legend {
   min-height: 300px;
 }
 .full-state > app-icon {
-  width: 26px;
-  height: 26px;
+  width: var(--icon-size);
+  height: var(--icon-size);
   color: var(--muted);
 }
 .full-state p {
@@ -426,8 +426,8 @@ legend {
   left: 11px;
   top: 10px;
   color: var(--muted);
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .search-field input {
   width: 100%;
@@ -549,8 +549,8 @@ legend {
   min-width: 32px;
 }
 .card-add-row .icon-button app-icon {
-  width: 14px;
-  height: 14px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .card-add {
   width: 100%;
@@ -641,8 +641,8 @@ legend {
   min-height: 32px;
 }
 .deck-heading app-icon {
-  width: 15px;
-  height: 15px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .deck-scroll {
   flex: 1;
@@ -793,8 +793,8 @@ legend {
   height: 30px;
 }
 .quantity app-icon {
-  width: 12px;
-  height: 12px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .empty-section {
   padding: 36px 10px;
@@ -909,8 +909,8 @@ legend {
 }
 .checks li > app-icon {
   color: var(--bad);
-  width: 14px;
-  height: 14px;
+  width: var(--icon-size);
+  height: var(--icon-size);
   margin-top: 2px;
 }
 .checks li.passed > app-icon {
@@ -2260,8 +2260,8 @@ input.deck-name {
 }
 .catalog-toolbar .search-field > app-icon {
   top: 11px;
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .catalog-toolbar .filter-toggle {
   height: 38px;
@@ -2314,8 +2314,8 @@ input.deck-name {
   border-radius: 0;
 }
 .zoom-controls .icon-button app-icon {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .results-controls :focus-visible {
   outline-offset: -3px;
@@ -2371,8 +2371,8 @@ input.deck-name {
   font-size: 11px;
 }
 .domain-choice app-domain-icon {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .domain-all {
   grid-column: 1 / -1;
@@ -2401,8 +2401,8 @@ input.deck-name {
   font-size: 11px;
 }
 .domain-tag app-domain-icon {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .domain-labels {
   gap: 16px;
@@ -2522,4 +2522,47 @@ textarea {
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: right;
+}
+
+/* Every UI glyph uses the shared icon geometry, including native-field affordances. */
+.select-field {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+}
+.select-field select {
+  appearance: none;
+  width: 100%;
+  padding-right: 32px;
+}
+.select-chevron {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+.results-controls > .select-field {
+  width: 100px;
+  flex-shrink: 0;
+}
+.select-field:has(select:disabled) .select-chevron {
+  color: var(--disabled-ink);
+  opacity: 0.45;
+}
+.checks summary::after,
+.notes summary::after,
+.checks[open] summary::after,
+.notes[open] summary::after {
+  content: none;
+}
+.details-chevron {
+  color: var(--muted);
+}
+.checks[open] .details-chevron,
+.notes[open] .details-chevron {
+  transform: rotate(180deg);
 }

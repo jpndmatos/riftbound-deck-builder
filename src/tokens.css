@@ -1,4 +1,6 @@
 :root {
+  --icon-size: 16px;
+  --icon-stroke: 1.75;
   --filter-width: 160px;
   --deck-width: 320px;
   --panel-gutter: 12px;

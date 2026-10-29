@@ -25,8 +25,8 @@
 }
 .brand > app-icon {
   color: var(--accent);
-  width: 22px;
-  height: 22px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .brand-sub {
   color: var(--muted);
@@ -90,8 +90,8 @@ main:focus {
     gap: 8px;
   }
   .brand > app-icon {
-    width: 18px;
-    height: 18px;
+    width: var(--icon-size);
+    height: var(--icon-size);
   }
   .brand-sub {
     display: none;
@@ -198,8 +198,8 @@ main {
   gap: 8px;
 }
 .brand > app-icon {
-  width: 20px;
-  height: 20px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 @media (max-width: 800px) {
   .app-header {
@@ -292,8 +292,8 @@ main {
   min-width: 0;
 }
 .brand > app-icon {
-  width: 20px;
-  height: 20px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 .app-header nav {
   padding-left: var(--panel-gutter);
