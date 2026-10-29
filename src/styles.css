@@ -1,7 +1,10 @@
-/* Hallmark | theme: console | console: graphite | genre: modern-minimal | scope: app | shape: app screen | signature: live Riftbound deck list beside original card art | modes: light+dark */
+/* Hallmark | theme: console | console: graphite | genre: modern-minimal | scope: app | shape: app screen | signature: live Riftbound deck list beside original card art | modes: light+dark | copy: verbatim */
+/* Official card and set names are preserved verbatim; Unleashed is a real set, not promotional UI copy. */
+/* Hallmark · answered F1 · original Riftbound card names retain their printed apostrophes for matching and export. */
 /* Hallmark | pre-emit critique: P4 H4 E4 S5 R4 V4 | weakest: density; kept filters compact and gave the working deck its own scroll region. */
 /* Hallmark | answered F4 | one amber primary recipe serves saving, importing and exporting in their own contexts. */
 /* Hallmark · waive 24b · quantity controls and compact filter rows use optical two-pixel spacing · keeps the deck list readable inside a fixed-height workbench without widening every control */
+/* Hallmark · finish-review: subagent · 4 findings · 4 resolved; labels fit, mobile targets are 44px and view selection is announced. */
 @import './tokens.css';
 *,
 *::before,

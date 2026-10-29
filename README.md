@@ -4,6 +4,8 @@ An Angular 22 workbench for building Riftbound decks. Search the official card c
 
 [Open the app](https://jpndmatos.github.io/riftbound-deck-builder/)
 
+![Riftbound card browser and deck editor](docs/builder-dark.jpg)
+
 Includes energy curves, Constructed checks, undo and redo, saved decks, text exports and JSON backups. Filters stay in the URL. Decks stay in your browser. Light and dark themes are available.
 
 ## Development

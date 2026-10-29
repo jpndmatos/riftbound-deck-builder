@@ -1,0 +1,34 @@
+[
+ {
+  "scope": "app",
+  "shape": "workbench",
+  "theme": "console",
+  "axes": [
+   "graphite",
+   "Poppins",
+   "amber controls",
+   "original card artwork",
+   "fixed-height split workspace",
+   "local deck state"
+  ],
+  "hero": "not applicable: app",
+  "nav": "two-destination top bar",
+  "footer": "none: app workspace",
+  "imagery": "official Riftbound card art",
+  "photos": [],
+  "entry": "src/app/builder/builder.html",
+  "fingerprint": "workbench;card-browser;live-deck;filter-rail;two-view-mobile;amber",
+  "sections": [
+   "card browser",
+   "deck editor",
+   "saved decks"
+  ],
+  "signature": "Original card art beside a live deck list and energy curve",
+  "waived": [
+   "24b: optical spacing for compact card quantities and filters"
+  ],
+  "prompt": "Angular Riftbound deck maker, useful and refined, Poppins, flat dashboard, light and dark themes",
+  "date": "2026-10-29",
+  "mode": "build"
+ }
+]

@@ -188,7 +188,8 @@
                       [alt]="card.name"
                       width="320"
                       height="447"
-                      loading="lazy"
+                      [loading]="$index < 4 ? 'eager' : 'lazy'"
+                      [attr.fetchpriority]="$index === 0 ? 'high' : null"
                       decoding="async"
                       (error)="imageError($event)"
                     /><span class="image-fallback">Image unavailable</span>
