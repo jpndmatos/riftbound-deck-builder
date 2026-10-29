@@ -1,0 +1,736 @@
+{
+  "summary": {
+    "fails": 0,
+    "reflex": 0,
+    "warns": 0,
+    "waived": 78,
+    "rejected": 0,
+    "answered": 1,
+    "dismissed": 0,
+    "notes": 1,
+    "files": 1,
+    "render": "off"
+  },
+  "findings": [
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 189,
+      "evidence": "padding: 0 10px (off the 4px scale) on input:not([type='radio']):not([type='checkbox']), select",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 197,
+      "evidence": "padding-right: 22px (off the 4px scale) on select",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 224,
+      "evidence": "margin-bottom: 10px (off the 4px scale) on legend",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 248,
+      "evidence": "padding: 10px (off the 4px scale) on .skip-link",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 344,
+      "evidence": "gap: 14px (off the 4px scale) on .full-state",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 371,
+      "evidence": "padding: 14px 0 (off the 4px scale) on .workspace-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 416,
+      "evidence": "gap: 7px (off the 4px scale) on .check-label",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 421,
+      "evidence": "margin-top: 3px (off the 4px scale) on .check-label input",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 425,
+      "evidence": "gap: 3px (off the 4px scale) on .type-filters",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 430,
+      "evidence": "gap: 9px (off the 4px scale) on .type-filters label",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 449,
+      "evidence": "margin-bottom: 9px (off the 4px scale) on .filter-fields select",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 462,
+      "evidence": "margin: 10px 0 (off the 4px scale) on .filter-note p",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 477,
+      "evidence": "gap: 10px (off the 4px scale) on .catalog-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 478,
+      "evidence": "padding: 16px 18px 6px (off the 4px scale) on .catalog-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 495,
+      "evidence": "padding-left: 35px (off the 4px scale) on .search-field input",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 504,
+      "evidence": "padding: 0 18px 8px (off the 4px scale) on .results-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 525,
+      "evidence": "padding: 4px 18px 16px (off the 4px scale) on .catalog-scroll",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 532,
+      "evidence": "gap: 22px 16px (off the 4px scale) on .card-grid",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 583,
+      "evidence": "padding-top: 7px (off the 4px scale) on .card-caption",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 622,
+      "evidence": "padding: 0 6px (off the 4px scale) on .card-add",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 644,
+      "evidence": "padding: 3px 6px (off the 4px scale) on .banned-label",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 655,
+      "evidence": "gap: 14px (off the 4px scale) on .card-list .catalog-card",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 657,
+      "evidence": "padding: 10px 3px (off the 4px scale) on .card-list .catalog-card",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 686,
+      "evidence": "padding: 6px 18px (off the 4px scale) on .pagination",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 694,
+      "evidence": "gap: 6px (off the 4px scale) on .pagination > div",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 719,
+      "evidence": "padding: 16px 14px 12px (off the 4px scale) on .deck-heading",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 759,
+      "evidence": "gap: 10px (off the 4px scale) on .deck-identity",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 760,
+      "evidence": "padding: 0 14px 12px (off the 4px scale) on .deck-identity",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 779,
+      "evidence": "gap: 5px (off the 4px scale) on .identity-fields",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 789,
+      "evidence": "padding-left: 7px (off the 4px scale) on .identity-fields select",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 794,
+      "evidence": "gap: 6px (off the 4px scale) on .deck-domains",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 795,
+      "evidence": "padding: 0 14px 14px (off the 4px scale) on .deck-domains",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 803,
+      "evidence": "gap: 6px (off the 4px scale) on .domain-labels",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 804,
+      "evidence": "margin: 18px 0 (off the 4px scale) on .domain-labels",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 807,
+      "evidence": "padding: 2px 6px (off the 4px scale) on .domain-tag",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 817,
+      "evidence": "padding-inline: 10px (off the 4px scale) on .zone-tabs",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 826,
+      "evidence": "gap: 3px (off the 4px scale) on .zone-tabs button",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 830,
+      "evidence": "padding: 5px 0 (off the 4px scale) on .zone-tabs button",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 850,
+      "evidence": "gap: 7px (off the 4px scale) on .deck-row",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 870,
+      "evidence": "padding: 6px 0 (off the 4px scale) on .deck-row-name",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 902,
+      "evidence": "padding: 36px 10px (off the 4px scale) on .empty-section",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 919,
+      "evidence": "gap: 10px (off the 4px scale) on .section-label",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 931,
+      "evidence": "gap: 10px (off the 4px scale) on .energy-chart",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 940,
+      "evidence": "gap: 5px (off the 4px scale) on .curve-column",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 974,
+      "evidence": "gap: 10px (off the 4px scale) on .checks summary, .notes summary",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 987,
+      "evidence": "margin-left: 5px (off the 4px scale) on .checks summary::after, .notes summary::after",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1009,
+      "evidence": "padding: 9px 0 (off the 4px scale) on .checks li",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1037,
+      "evidence": "padding: 12px 14px (off the 4px scale) on .deck-footer",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1054,
+      "evidence": "gap: 14px (off the 4px scale) on .inline-notice, .storage-warning, .delete-notice",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1110,
+      "evidence": "margin-top: 10px (off the 4px scale) on .saved-heading p",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1121,
+      "evidence": "padding: 18px 22px (off the 4px scale) on .saved-row",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1167,
+      "evidence": "gap: 6px (off the 4px scale) on .saved-row-actions",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1206,
+      "evidence": "gap: 26px (off the 4px scale) on .preview-layout",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1216,
+      "evidence": "padding-top: 18px (off the 4px scale) on .preview-copy",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1230,
+      "evidence": "margin: 18px 0 (off the 4px scale) on .rules-text",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1235,
+      "evidence": "gap: 14px (off the 4px scale) on .card-facts",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1244,
+      "evidence": "margin-top: 3px (off the 4px scale) on .card-facts dd",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1248,
+      "evidence": "margin: 0 6px 10px 0 (off the 4px scale) on .preview-copy > .button",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1258,
+      "evidence": "margin-bottom: 18px (off the 4px scale) on .dialog-heading",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1275,
+      "evidence": "gap: 3px (off the 4px scale) on .segmented",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1276,
+      "evidence": "padding: 3px (off the 4px scale) on .segmented",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1297,
+      "evidence": "gap: 10px (off the 4px scale) on .dialog-actions",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1310,
+      "evidence": "margin-top: 10px (off the 4px scale) on .transfer-dialog .helper",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1351,
+      "evidence": "padding-inline: 14px (off the 4px scale) on .catalog-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1352,
+      "evidence": "gap: 6px (off the 4px scale) on .catalog-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1355,
+      "evidence": "padding-inline: 14px (off the 4px scale) on .catalog-scroll",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1359,
+      "evidence": "gap: 18px 14px (off the 4px scale) on .card-grid",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1370,
+      "evidence": "gap: 10px (off the 4px scale) on .workspace-title",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1379,
+      "evidence": "padding-inline: 9px (off the 4px scale) on .toolbar-actions .button",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1435,
+      "evidence": "padding-inline: 14px (off the 4px scale) on .catalog-scroll",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1438,
+      "evidence": "padding-inline: 14px (off the 4px scale) on .results-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1470,
+      "evidence": "gap: 18px (off the 4px scale) on .saved-heading",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1500,
+      "evidence": "padding: 22px 18px (off the 4px scale) on .card-dialog, .transfer-dialog",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1592,
+      "evidence": "gap: 42px (off the 4px scale) on .app-header",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1599,
+      "evidence": "gap: 10px (off the 4px scale) on .brand",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1618,
+      "evidence": "gap: 26px (off the 4px scale) on .app-header nav",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1624,
+      "evidence": "gap: 6px (off the 4px scale) on .app-header nav a",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1706,
+      "evidence": "gap: 14px (off the 4px scale) on .app-header",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "F1",
+      "grade": "ANSWERED",
+      "tier": "finish",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1729,
+      "evidence": "straight quote in prose x7 (first: Evelynn / Agony's Embrace)",
+      "fix": "Use typographic quotes: “ ” ’"
+    },
+    {
+      "gate": "19",
+      "grade": "NOTE",
+      "tier": "floor",
+      "file": ".hallmark\\rendered-audit.html",
+      "line": 1729,
+      "evidence": "buzzword \"Unleashed\"",
+      "fix": "Say what the product does, in its own nouns"
+    }
+  ]
+}

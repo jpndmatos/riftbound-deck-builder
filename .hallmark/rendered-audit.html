@@ -1,0 +1,1735 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Riftbound Deck Builder</title><meta name="description" content="Build and save Riftbound decks using the official card catalog."><style>/* Hallmark | theme: console | console: graphite | genre: modern-minimal | scope: app | shape: app screen | signature: live Riftbound deck list beside original card art | modes: light+dark | copy: verbatim */
+/* Official card and set names are preserved verbatim; Unleashed is a real set, not promotional UI copy. */
+/* Hallmark · answered F1 · original Riftbound card names retain their printed apostrophes for matching and export. */
+/* Hallmark | pre-emit critique: P4 H4 E4 S5 R4 V4 | weakest: density; kept filters compact and gave the working deck its own scroll region. */
+/* Hallmark | answered F4 | one amber primary recipe serves saving, importing and exporting in their own contexts. */
+/* Hallmark · waive 24b · quantity controls and compact filter rows use optical two-pixel spacing · keeps the deck list readable inside a fixed-height workbench without widening every control */
+/* Hallmark · finish-review: subagent · 4 findings · 4 resolved; labels fit, mobile targets are 44px and view selection is announced. */
+:root {
+  --paper: #101315;
+  --surface: #191d20;
+  --panel: #15191c;
+  --field: #111619;
+  --ink: #ecebe6;
+  --ink-soft: #cfceca;
+  --muted: #a3aaa9;
+  --rule: #333b3f;
+  --rule-subtle: #2b3337;
+  --rule-strong: #59676d;
+  --field-border: #68777b;
+  --accent: #d6b56d;
+  --accent-hover: #e4c583;
+  --accent-ink: #251e0f;
+  --focus: #e7c273;
+  --hover: #2a3236;
+  --disabled-ink: #b9c1c3;
+  --disabled-bg: #20272b;
+  --art-bed: #202529;
+  --bad: #ed9b91;
+  --bad-bg: #3f2525;
+  --ok: #96c6a9;
+  --curve-bg: #242b2f;
+  --notice-bg: #30302a;
+  --scrim: rgb(3 7 9 / 78%);
+  --clear: transparent;
+  --selection: #51482c;
+  --font-body: 'Poppins', sans-serif;
+}
+[data-mode='light'] {
+  --paper: #f2f1ed;
+  --surface: #faf9f5;
+  --panel: #edede7;
+  --field: #faf9f5;
+  --ink: #242c2e;
+  --ink-soft: #414b4e;
+  --muted: #616d70;
+  --rule: #d0d3cb;
+  --rule-subtle: #dde0d8;
+  --rule-strong: #929e9e;
+  --field-border: #7c898b;
+  --accent: #8b631b;
+  --accent-hover: #77520f;
+  --accent-ink: #fff8e8;
+  --focus: #906218;
+  --hover: #e3e5dd;
+  --disabled-ink: #344143;
+  --disabled-bg: #e2e5df;
+  --art-bed: #d9dcd6;
+  --bad: #a13429;
+  --bad-bg: #f8e1dc;
+  --ok: #306e4d;
+  --curve-bg: #dfe3d9;
+  --notice-bg: #ede4ca;
+  --scrim: rgb(22 28 30 / 60%);
+  --selection: #e0ce99;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  overflow-x: clip;
+}
+html {
+  color-scheme: dark;
+  background: var(--paper);
+  scrollbar-color: var(--rule-strong) var(--paper);
+  caret-color: var(--accent);
+}
+html[data-mode='light'] {
+  color-scheme: light;
+}
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button,
+a,
+input,
+select,
+textarea,
+summary {
+  touch-action: manipulation;
+}
+button,
+a {
+  -webkit-tap-highlight-color: var(--clear);
+}
+button {
+  cursor: pointer;
+}
+button,
+a,
+summary {
+  white-space: nowrap;
+}
+button {
+  color: inherit;
+}
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+button:disabled {
+  cursor: not-allowed;
+  color: var(--disabled-ink);
+  background: var(--disabled-bg);
+  border-color: var(--rule);
+  opacity: 0.8;
+}
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+h1,
+h2,
+h3,
+p,
+ul,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  font-weight: 500;
+  line-height: 1.25;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+h1 {
+  font-size: 21px;
+}
+h2 {
+  font-size: 19px;
+}
+h3 {
+  font-size: 14px;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+input,
+select,
+textarea {
+  min-width: 0;
+  color: var(--ink);
+  background: var(--field);
+  border: 1px solid var(--field-border);
+  border-radius: 5px;
+}
+input:not([type='radio']):not([type='checkbox']),
+select {
+  height: 38px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+select {
+  padding-right: 22px;
+  text-overflow: ellipsis;
+}
+textarea {
+  width: 100%;
+  padding: 12px;
+  resize: vertical;
+  font-size: 14px;
+  line-height: 1.6;
+}
+input[type='checkbox'],
+input[type='radio'] {
+  accent-color: var(--accent);
+}
+label,
+legend {
+  font-size: 13px;
+  color: var(--muted);
+}
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+legend {
+  padding: 0;
+  margin-bottom: 10px;
+}
+::selection {
+  background: var(--selection);
+  color: var(--ink);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: clip;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 12px;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 10px;
+  transform: translateY(-150%);
+}
+.skip-link:focus {
+  transform: none;
+}
+.muted,
+.helper {
+  color: var(--muted);
+}
+.helper {
+  font-size: 12px;
+  line-height: 1.6;
+  min-height: 1lh;
+}
+.error-text {
+  color: var(--bad);
+}
+.ready {
+  color: var(--ok);
+}
+.button,
+.icon-button,
+.text-button,
+.card-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  min-height: 38px;
+  padding: 0 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+.button:hover:not(:disabled),
+.icon-button:hover:not(:disabled),
+.card-add:hover:not(:disabled) {
+  background: var(--hover);
+}
+.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+}
+.icon-button {
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  padding: 0;
+  background: var(--clear);
+  border-color: var(--clear);
+  color: var(--muted);
+}
+.icon-button.selected {
+  background: var(--hover);
+  color: var(--ink);
+}
+.text-button {
+  border-color: var(--clear);
+  background: var(--clear);
+  color: var(--accent);
+  padding-inline: 4px;
+}
+.text-button:hover {
+  color: var(--ink);
+}
+.danger {
+  color: var(--bad);
+}
+.compact-actions {
+  display: flex;
+  gap: 0;
+}
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.full-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  padding: 48px 24px;
+  min-height: 300px;
+}
+.full-state > app-icon {
+  width: 26px;
+  height: 26px;
+  color: var(--muted);
+}
+.full-state p {
+  max-width: 430px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.builder-shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.workspace-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 72px;
+  padding: 14px 0;
+}
+.workspace-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.workspace-title .muted {
+  font-size: 12px;
+}
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 174px minmax(0, 1fr) 340px;
+  flex: 1;
+  min-height: 0;
+  border: 1px solid var(--rule);
+  border-radius: 9px;
+  overflow: clip;
+  background: var(--surface);
+  position: relative;
+}
+.filter-panel {
+  padding: 20px 16px;
+  background: var(--panel);
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+}
+.filter-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filter-heading h2 {
+  font-size: 14px;
+}
+.filter-heading .text-button {
+  min-height: 28px;
+  font-size: 12px;
+}
+.check-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+.check-label input {
+  margin-top: 3px;
+}
+.type-filters {
+  display: grid;
+  gap: 3px;
+}
+.type-filters label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 32px;
+  text-transform: capitalize;
+  color: var(--muted);
+  cursor: pointer;
+}
+.type-filters label.selected {
+  color: var(--ink);
+}
+.type-filters input {
+  margin: 0;
+  width: 14px;
+  height: 14px;
+}
+.filter-fields {
+  display: grid;
+  gap: 8px;
+}
+.filter-fields select {
+  margin-bottom: 9px;
+  width: 100%;
+  text-transform: capitalize;
+}
+.filter-note {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.filter-note p {
+  margin: 10px 0;
+}
+.filter-note a {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.catalog-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+.catalog-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px 6px;
+}
+.search-field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.search-field > app-icon {
+  position: absolute;
+  left: 11px;
+  top: 10px;
+  color: var(--muted);
+  width: 16px;
+  height: 16px;
+}
+.search-field input {
+  width: 100%;
+  padding-left: 35px !important;
+}
+.catalog-toolbar select {
+  width: 100px;
+}
+.results-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px 8px;
+  font-size: 12px;
+  color: var(--muted);
+  min-height: 40px;
+}
+.view-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.view-switch .icon-button {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  min-height: 30px;
+}
+.catalog-scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  min-height: 0;
+  flex: 1;
+  padding: 4px 18px 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) var(--surface);
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  gap: 22px 16px;
+  align-items: start;
+}
+.catalog-card {
+  min-width: 0;
+  position: relative;
+}
+.card-art {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: var(--art-bed);
+  position: relative;
+  display: block;
+  aspect-ratio: 744/1039;
+  overflow: clip;
+}
+.card-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 7px;
+}
+.card-art:hover {
+  outline: 1px solid var(--rule-strong);
+  outline-offset: 3px;
+}
+.in-deck .card-art {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+.card-name {
+  font-size: 12px;
+  font-weight: 500;
+  border: 0;
+  background: var(--clear);
+  padding: 0;
+  line-height: 1.5;
+  max-width: 100%;
+  overflow: clip;
+  text-overflow: ellipsis;
+  display: block;
+  text-align: left;
+  color: var(--ink);
+  min-height: 28px;
+}
+.card-name:hover {
+  color: var(--accent);
+}
+.card-caption {
+  padding-top: 7px;
+}
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+.card-add-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  min-height: 32px;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: var(--panel);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.card-add-row .icon-button {
+  height: 30px;
+  min-height: 30px;
+  width: 32px;
+  min-width: 32px;
+}
+.card-add-row .icon-button app-icon {
+  width: 14px;
+  height: 14px;
+}
+.card-add {
+  width: 100%;
+  min-height: 30px;
+  font-size: 11px;
+  border: 0;
+  background: var(--clear);
+  padding: 0 6px;
+}
+.card-add.selected {
+  color: var(--accent);
+}
+.image-fallback {
+  display: none;
+}
+.image-unavailable .image-fallback {
+  display: block;
+  position: absolute;
+  inset: 40% 8px auto;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: normal;
+}
+.banned-label {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--bad-bg);
+  color: var(--bad);
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+}
+.card-list {
+  display: grid;
+  gap: 0;
+}
+.card-list .catalog-card {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 105px;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 3px;
+  border-bottom: 1px solid var(--rule);
+}
+.card-list .card-caption {
+  padding: 0;
+}
+.card-list .card-name {
+  font-size: 14px;
+}
+.card-list .card-meta {
+  justify-content: flex-start;
+  gap: 12px;
+  font-size: 12px;
+}
+.card-list .card-add-row {
+  margin: 0;
+}
+.card-list .card-art {
+  border-radius: 3px;
+}
+.card-list .banned-label {
+  display: none;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  padding: 6px 18px;
+  border-top: 1px solid var(--rule);
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.pagination > div {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.pagination .icon-button {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  min-height: 30px;
+}
+.workspace-grid > app-deck-panel {
+  min-width: 0;
+  min-height: 0;
+}
+.deck-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-left: 1px solid var(--rule);
+}
+.deck-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 14px 12px;
+}
+.deck-heading > div:first-child {
+  min-width: 0;
+  flex: 1;
+}
+.deck-name {
+  border-color: var(--clear);
+  background: var(--clear);
+  width: 100%;
+  font-size: 16px !important;
+  font-weight: 500;
+  padding: 0 !important;
+  height: 28px !important;
+  border-radius: 0;
+}
+.draft-label {
+  font-size: 10px;
+  color: var(--muted);
+}
+.deck-heading .icon-button {
+  width: 30px;
+  min-width: 30px;
+  height: 32px;
+  min-height: 32px;
+}
+.deck-heading app-icon {
+  width: 15px;
+  height: 15px;
+}
+.deck-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) var(--panel);
+}
+.deck-identity {
+  display: flex;
+  gap: 10px;
+  padding: 0 14px 12px;
+}
+.legend-art {
+  border: 0;
+  border-radius: 4px;
+  background: var(--art-bed);
+  padding: 0;
+  width: 60px;
+  flex-shrink: 0;
+  align-self: center;
+  overflow: clip;
+}
+.legend-art img {
+  width: 60px;
+  height: 84px;
+  object-fit: cover;
+}
+.identity-fields {
+  display: grid;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+.identity-fields label {
+  font-size: 10px;
+}
+.identity-fields select {
+  height: 31px;
+  font-size: 11px;
+  padding-left: 7px;
+}
+.deck-domains {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px 14px;
+}
+.deck-domains > .muted {
+  margin-left: auto;
+  font-size: 10px;
+}
+.domain-labels {
+  display: flex;
+  gap: 6px;
+  margin: 18px 0;
+}
+.domain-tag {
+  padding: 2px 6px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  font-size: 10px;
+  color: var(--ink-soft);
+  text-transform: capitalize;
+}
+.zone-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding-inline: 10px;
+  border-block: 1px solid var(--rule);
+  background: var(--surface);
+}
+.zone-tabs button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 51px;
+  border: 0;
+  border-bottom: 2px solid var(--clear);
+  padding: 5px 0;
+  color: var(--muted);
+  background: var(--clear);
+  font-size: 11px;
+}
+.zone-tabs button span {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.zone-tabs button.selected {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.deck-rows {
+  padding: 8px 12px 12px;
+  min-height: 160px;
+}
+.deck-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  border-bottom: 1px solid var(--rule-subtle);
+}
+.energy-value {
+  color: var(--muted);
+  font-size: 11px;
+  min-width: 16px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.deck-row-name {
+  border: 0;
+  background: var(--clear);
+  font-size: 11px;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  overflow: clip;
+  text-overflow: ellipsis;
+  padding: 6px 0;
+  color: var(--ink-soft);
+}
+.deck-row-name:hover {
+  color: var(--accent);
+}
+.chosen-label {
+  display: block;
+  color: var(--accent);
+  font-size: 9px;
+}
+.quantity {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.quantity > span {
+  min-width: 16px;
+  text-align: center;
+}
+.quantity .icon-button {
+  min-width: 25px;
+  width: 25px;
+  min-height: 30px;
+  height: 30px;
+}
+.quantity app-icon {
+  width: 12px;
+  height: 12px;
+}
+.empty-section {
+  padding: 36px 10px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.empty-section span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.curve-section {
+  border-top: 1px solid var(--rule);
+  padding: 16px;
+}
+.section-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.section-label h3 {
+  font-size: 12px;
+}
+.section-label > span {
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.energy-chart {
+  display: flex;
+  gap: 10px;
+  height: 93px;
+  margin-top: 12px;
+}
+.curve-column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.curve-value {
+  height: 13px;
+  font-size: 9px;
+}
+.curve-well {
+  height: 53px;
+  width: 100%;
+  position: relative;
+  background: var(--curve-bg);
+}
+.curve-bar {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: bottom;
+}
+.checks,
+.notes {
+  border-top: 1px solid var(--rule);
+  padding: 0 16px;
+}
+.checks summary,
+.notes summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  list-style: none;
+}
+.checks summary::-webkit-details-marker,
+.notes summary::-webkit-details-marker {
+  display: none;
+}
+.checks summary::after,
+.notes summary::after {
+  content: '+';
+  color: var(--muted);
+  margin-left: 5px;
+}
+.checks[open] summary::after,
+.notes[open] summary::after {
+  content: '−';
+}
+.checks summary > span:last-of-type {
+  font-size: 10px;
+  margin-left: auto;
+  color: var(--muted);
+}
+.checks summary > span.ready {
+  color: var(--ok);
+}
+.checks ul {
+  list-style: none;
+  padding: 0;
+}
+.checks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px 0;
+  font-size: 12px;
+}
+.checks li > app-icon {
+  color: var(--bad);
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+}
+.checks li.passed > app-icon {
+  color: var(--ok);
+}
+.checks li p {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.checks > .helper {
+  font-size: 10px;
+  padding: 12px 0;
+}
+.notes textarea {
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+.deck-footer {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--rule);
+  background: var(--panel);
+}
+.deck-footer > .button {
+  flex: 1;
+}
+.filter-toggle,
+.mobile-workspace-tabs {
+  display: none;
+}
+.inline-notice,
+.storage-warning,
+.delete-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: var(--notice-bg);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  font-size: 12px;
+  padding: 8px 16px;
+}
+.inline-notice {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  max-width: calc(100% - 32px);
+}
+.storage-warning {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 40;
+}
+.loading-workspace {
+  padding: 20px;
+  overflow-y: auto;
+}
+.loading-workspace > p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.skeleton-card {
+  aspect-ratio: 744/1039;
+  background: var(--hover);
+  border-radius: 6px;
+}
+.saved-page {
+  height: 100%;
+  overflow-y: auto;
+  padding-block: 32px;
+}
+.saved-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.saved-heading p {
+  font-size: 13px;
+  margin-top: 10px;
+}
+.saved-list {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.saved-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--rule);
+}
+.saved-row:last-child {
+  border-bottom: 0;
+}
+.saved-row > img {
+  width: 48px;
+  height: 66px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+.saved-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+.saved-deck-name {
+  border: 0;
+  background: var(--clear);
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  padding: 0;
+  width: fit-content;
+  max-width: 100%;
+  overflow: clip;
+  text-overflow: ellipsis;
+}
+.saved-deck-name:hover {
+  color: var(--accent);
+}
+.saved-row-main .muted {
+  font-size: 12px;
+}
+.saved-meta,
+.saved-row time {
+  font-size: 11px;
+  color: var(--muted);
+}
+.saved-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.saved-no-art {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 66px;
+  background: var(--hover);
+  color: var(--ink-soft);
+}
+.delete-notice {
+  margin-top: 16px;
+}
+.card-dialog,
+.transfer-dialog {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: 10px;
+  padding: 28px;
+  max-height: calc(100dvh - 40px);
+  max-width: calc(100% - 32px);
+  width: 760px;
+  overflow-y: auto;
+}
+.card-dialog::backdrop,
+.transfer-dialog::backdrop {
+  background: var(--scrim);
+}
+.dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  background: var(--surface);
+}
+.preview-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+.preview-layout > img {
+  width: 100%;
+  height: auto;
+  max-height: 590px;
+  object-fit: contain;
+}
+.preview-copy {
+  padding-top: 18px;
+}
+.preview-copy h2 {
+  font-size: 22px;
+  line-height: 1.3;
+}
+.preview-copy > .muted {
+  font-size: 12px;
+  margin-top: 8px;
+}
+.rules-text {
+  white-space: pre-line;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 18px 0;
+}
+.card-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.card-facts dt {
+  font-size: 11px;
+  color: var(--muted);
+}
+.card-facts dd {
+  font-size: 14px;
+  margin-top: 3px;
+  font-variant-numeric: tabular-nums;
+}
+.preview-copy > .button {
+  margin: 0 6px 10px 0;
+}
+.transfer-dialog {
+  width: 600px;
+}
+.dialog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.dialog-heading h2 {
+  font-size: 20px;
+}
+.transfer-dialog > .muted {
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+.transfer-dialog textarea {
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  min-height: 220px;
+}
+.segmented {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+}
+.segmented button {
+  border: 0;
+  background: var(--clear);
+  color: var(--muted);
+  border-radius: 3px;
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+.segmented button.selected {
+  background: var(--hover);
+  color: var(--ink);
+}
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+.file-label {
+  display: grid;
+  gap: 8px;
+}
+.file-label input {
+  padding: 8px;
+  font-size: 12px;
+  height: auto !important;
+}
+.transfer-dialog .helper {
+  margin-top: 10px;
+}
+@media (min-width: 1600px) {
+  .workspace-grid {
+    grid-template-columns: 190px minmax(0, 1fr) 370px;
+  }
+  .card-name {
+    font-size: 13px;
+  }
+  .card-meta {
+    font-size: 11px;
+  }
+  .deck-row-name {
+    font-size: 12px;
+  }
+  .deck-name {
+    font-size: 17px !important;
+  }
+  .identity-fields select {
+    font-size: 12px;
+  }
+}
+@media (max-width: 1100px) {
+  .workspace-grid {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+  .filter-panel {
+    display: none;
+  }
+  .filter-panel.filters-open {
+    display: flex;
+    position: absolute;
+    z-index: 20;
+    inset: 58px auto 0 0;
+    width: 215px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .filter-toggle {
+    display: inline-flex;
+  }
+  .catalog-toolbar {
+    padding-inline: 14px;
+    gap: 6px;
+  }
+  .catalog-scroll {
+    padding-inline: 14px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+    gap: 18px 14px;
+  }
+  .header-end .local-label {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  .workspace-toolbar {
+    min-height: 66px;
+  }
+  .workspace-title {
+    gap: 10px;
+  }
+  .workspace-title .muted {
+    display: none;
+  }
+  .workspace-title h1 {
+    font-size: 18px;
+  }
+  .toolbar-actions .button {
+    padding-inline: 9px;
+    font-size: 12px;
+  }
+  .mobile-workspace-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    padding: 4px;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .mobile-workspace-tabs button {
+    min-height: 38px;
+    border: 0;
+    border-radius: 4px;
+    background: var(--clear);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .mobile-workspace-tabs .selected {
+    background: var(--hover);
+    color: var(--ink);
+  }
+  .mobile-workspace-tabs span {
+    margin-left: 8px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .workspace-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workspace-grid > app-deck-panel {
+    display: none;
+  }
+  .workspace-grid.mobile-deck > app-deck-panel {
+    display: block;
+  }
+  .mobile-deck .catalog-panel,
+  .mobile-deck .filter-panel {
+    display: none;
+  }
+  .deck-panel {
+    border-left: 0;
+  }
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+  .catalog-toolbar {
+    padding: 12px 12px 4px;
+  }
+  .catalog-toolbar select {
+    width: 80px;
+  }
+  .catalog-scroll {
+    padding-inline: 14px;
+  }
+  .results-toolbar {
+    padding-inline: 14px;
+  }
+  .pagination {
+    padding-inline: 12px;
+  }
+  .card-caption .card-name {
+    font-size: 12px;
+  }
+  .deck-row-name {
+    font-size: 13px;
+  }
+  .quantity .icon-button {
+    width: 34px;
+    min-width: 34px;
+    min-height: 38px;
+  }
+  .deck-row {
+    min-height: 44px;
+  }
+  .identity-fields select {
+    font-size: 12px;
+    height: 36px;
+  }
+  .deck-heading {
+    padding-top: 12px;
+  }
+  .deck-name {
+    font-size: 17px !important;
+  }
+  .saved-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .saved-row {
+    gap: 12px;
+    padding: 16px 12px;
+    flex-wrap: wrap;
+  }
+  .saved-row time {
+    display: none;
+  }
+  .saved-row-main {
+    min-width: 180px;
+  }
+  .saved-row-actions {
+    margin-left: auto;
+  }
+  .saved-page {
+    padding-top: 24px;
+  }
+  .saved-row-main .muted {
+    font-size: 11px;
+  }
+  .preview-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .preview-layout > img {
+    max-height: 420px;
+  }
+  .card-dialog,
+  .transfer-dialog {
+    padding: 22px 18px;
+  }
+  .preview-copy {
+    padding-top: 0;
+  }
+  .preview-copy h2 {
+    font-size: 21px;
+  }
+  .preview-copy .rules-text {
+    font-size: 14px;
+  }
+  .skeleton-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.filter-panel {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) var(--panel);
+}
+@media (max-width: 800px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+  }
+}
+@media (pointer: coarse) {
+  .icon-button,
+  .quantity .icon-button,
+  .card-add-row .icon-button {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+  }
+  .card-add-row {
+    min-height: 44px;
+  }
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+.saved-no-art {
+  color: var(--ink-soft);
+}
+.image-unavailable img {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .catalog-toolbar select {
+    width: 96px;
+  }
+  .icon-button,
+  .view-switch .icon-button,
+  .pagination .icon-button,
+  .quantity .icon-button,
+  .card-add-row .icon-button,
+  .deck-heading .icon-button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+  }
+  .button,
+  .text-button,
+  .card-add {
+    min-height: 44px;
+  }
+}
+
+/* Hallmark | theme: console | genre: modern-minimal | scope: app | shape: app screen | signature: live Riftbound deck list | modes: light+dark */
+/* Hallmark | critique: keep the shell compact and leave the available area to the card workspace. */
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+.app-header {
+  width: min(calc(100% - 48px), 1640px);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 42px;
+  height: 68px;
+  border-bottom: 1px solid var(--rule);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.brand > app-icon {
+  color: var(--accent);
+  width: 22px;
+  height: 22px;
+}
+.brand-sub {
+  color: var(--muted);
+  font-weight: 400;
+}
+.app-header nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  height: 100%;
+}
+.app-header nav a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  border-bottom: 2px solid var(--clear);
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 13px;
+}
+.app-header nav a:hover {
+  color: var(--ink);
+}
+.app-header nav a.current {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+.nav-count {
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.header-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.local-label {
+  font-size: 11px;
+  color: var(--muted);
+}
+main {
+  width: min(calc(100% - 48px), 1640px);
+  margin-inline: auto;
+  height: calc(100dvh - 84px);
+  min-height: 440px;
+}
+main:focus {
+  outline: none;
+}
+@media (max-width: 800px) {
+  .app-header {
+    width: calc(100% - 24px);
+    height: 60px;
+    gap: 20px;
+  }
+  .brand {
+    font-size: 14px;
+    gap: 8px;
+  }
+  .brand > app-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .brand-sub {
+    display: none;
+  }
+  .app-header nav {
+    gap: 16px;
+  }
+  .app-header nav a {
+    font-size: 12px;
+  }
+  .header-end {
+    gap: 0;
+  }
+  .local-label {
+    display: none;
+  }
+  .header-end .icon-button {
+    width: 32px;
+    min-width: 32px;
+  }
+  .nav-count {
+    display: none;
+  }
+  main {
+    width: calc(100% - 24px);
+    height: calc(100dvh - 72px);
+    min-height: 400px;
+  }
+}
+@media (max-width: 360px) {
+  .app-header {
+    gap: 14px;
+  }
+  .app-header nav {
+    gap: 12px;
+  }
+  .brand {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 800px) {
+  .header-end .icon-button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+}
+@media (max-width: 360px) {
+  .app-header {
+    gap: 8px;
+  }
+}
+</style></head><body>
+    <app-root ng-version="22.2.3" _nghost-ng-c3696603169=""><a _ngcontent-ng-c3696603169="" href="#workspace" class="skip-link">Skip to workspace</a><header _ngcontent-ng-c3696603169="" class="app-header"><a _ngcontent-ng-c3696603169="" routerlink="/builder" aria-label="Riftbound deck builder" class="brand" href="#/builder"><app-icon _ngcontent-ng-c3696603169="" name="cards" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 3h12v17H5ZM17 6h4v17H9v-3"></path></svg></app-icon><span _ngcontent-ng-c3696603169="">Riftbound <span _ngcontent-ng-c3696603169="" class="brand-sub">decks</span></span></a><nav _ngcontent-ng-c3696603169="" aria-label="Main navigation"><a _ngcontent-ng-c3696603169="" routerlink="/builder" routerlinkactive="current" href="#/builder" class="current">Builder</a><a _ngcontent-ng-c3696603169="" routerlink="/decks" routerlinkactive="current" href="#/decks">Saved decks <span _ngcontent-ng-c3696603169="" class="nav-count">1</span></a></nav><div _ngcontent-ng-c3696603169="" class="header-end"><span _ngcontent-ng-c3696603169="" class="local-label">Saved on this device</span><button _ngcontent-ng-c3696603169="" type="button" class="icon-button" title="Light theme" aria-label="Switch to light theme"><app-icon _ngcontent-ng-c3696603169="" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0"></path></svg></app-icon></button></div></header><main _ngcontent-ng-c3696603169="" id="workspace" tabindex="-1"><router-outlet _ngcontent-ng-c3696603169=""></router-outlet><app-builder><div class="builder-shell"><div class="workspace-toolbar"><div class="workspace-title"><h1>Deck builder</h1><span class="muted">1078 cards</span></div><div class="toolbar-actions"><button type="button" class="button"><app-icon name="upload" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 16V4m-5 5 5-5 5 5M4 16v5h16v-5"></path></svg></app-icon><span>Import</span></button><button type="button" class="button"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon>New deck </button></div></div><div class="mobile-workspace-tabs"><button type="button" class="selected" aria-pressed="true"> Cards</button><button type="button" aria-pressed="false"> Deck <span>40/40</span></button></div><!----><!----><div class="workspace-grid"><form novalidate="" aria-label="Card filters" class="filter-panel ng-untouched ng-pristine ng-valid"><div class="filter-heading"><h2>Filters</h2><button type="button" class="text-button">Reset</button></div><label class="check-label"><input type="checkbox" formcontrolname="compatible" class="ng-untouched ng-pristine ng-valid"><span>Match legend</span></label><fieldset><legend>Card type</legend><div class="type-filters"><label><input type="radio" formcontrolname="type" class="ng-untouched ng-pristine ng-valid"><span>All cards</span></label><label class="selected"><input type="radio" formcontrolname="type" class="ng-untouched ng-pristine ng-valid"><span>unit</span></label><label><input type="radio" formcontrolname="type" class="ng-untouched ng-pristine ng-valid"><span>spell</span></label><label><input type="radio" formcontrolname="type" class="ng-untouched ng-pristine ng-valid"><span>gear</span></label><label><input type="radio" formcontrolname="type" class="ng-untouched ng-pristine ng-valid"><span>legend</span></label><label><input type="radio" formcontrolname="type" class="ng-untouched ng-pristine ng-valid"><span>rune</span></label><label><input type="radio" formcontrolname="type" class="ng-untouched ng-pristine ng-valid"><span>battlefield</span></label><!----></div></fieldset><div class="filter-fields"><label for="domain-filter">Domain</label><select id="domain-filter" formcontrolname="domain" class="ng-untouched ng-pristine ng-valid"><option value="all">All</option><option value="fury">fury</option><option value="calm">calm</option><option value="mind">mind</option><option value="body">body</option><option value="chaos">chaos</option><option value="order">order</option><!----></select><label for="set-filter">Set</label><select id="set-filter" formcontrolname="set" class="ng-untouched ng-pristine ng-valid"><option value="all">All</option><option value="UNL">Unleashed</option><option value="VEN">Vendetta</option><option value="OGN">Origins</option><option value="SFD">Spiritforged</option><option value="RAD">Radiance</option><option value="OGS">Proving Grounds</option><!----></select></div><div class="filter-note"><p>Alternate printings are grouped by name.</p><a href="https://playriftbound.com/en-us/card-gallery/" target="_blank" rel="noopener noreferrer">Official card gallery</a><p>Catalog: 2026-10-29</p><p>Card art and game text © Riot Games. Unofficial fan project.</p></div></form><section aria-label="Card browser" class="catalog-panel"><div class="catalog-toolbar"><button type="button" aria-label="Toggle card filters" class="icon-button filter-toggle" aria-expanded="false"><app-icon name="filter" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M4 6h16M7 12h10M10 18h4"></path></svg></app-icon></button><div class="search-field"><app-icon name="search" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0"></path></svg></app-icon><label for="card-search" class="sr-only">Search cards</label><input id="card-search" type="search" placeholder="Search cards, text, champion..." autocomplete="off" class="ng-untouched ng-pristine ng-valid"></div><label for="sort-cards" class="sr-only">Sort cards</label><select id="sort-cards" class="ng-untouched ng-pristine ng-valid"><option value="name">Name</option><option value="energy">Energy</option></select></div><div class="results-toolbar"><span role="status">186 results</span><div class="view-switch"><button type="button" aria-label="Grid view" class="icon-button selected" aria-pressed="true"><app-icon name="grid" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M3 3h7v7H3ZM14 3h7v7h-7ZM3 14h7v7H3ZM14 14h7v7h-7Z"></path></svg></app-icon></button><button type="button" aria-label="List view" class="icon-button" aria-pressed="false"><app-icon name="list" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M9 6h12M9 12h12M9 18h12M3 6h1M3 12h1M3 18h1"></path></svg></app-icon></button></div></div><div tabindex="0" aria-label="Card results" class="catalog-scroll"><!----><div class="card-grid"><article class="catalog-card in-deck"><button type="button" class="card-art" aria-label="View Akali, Brash"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/20997ddaef2cd714c36e5473c156faf331b80b7b-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Akali, Brash" loading="eager" fetchpriority="high"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Akali, Brash"> Akali, Brash</button><span class="card-meta">unit <span>5 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" aria-label="Remove Akali, Brash"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="3 copies in deck">3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Akali, Brash"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card in-deck"><button type="button" class="card-art" aria-label="View Akali, Deadly Weapon"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/564e5f35ae39b6604290e83f39ffb61c2b2b9175-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Akali, Deadly Weapon" loading="eager"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Akali, Deadly Weapon"> Akali, Deadly Weapon</button><span class="card-meta">unit <span>3 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" aria-label="Remove Akali, Deadly Weapon"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="3 copies in deck">3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Akali, Deadly Weapon"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card in-deck"><button type="button" class="card-art" aria-label="View Amateur Demolitionist"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3dca5e04ff8dff983993f87d5a82a7fd56d7bc9c-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Amateur Demolitionist" loading="eager"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Amateur Demolitionist"> Amateur Demolitionist</button><span class="card-meta">unit <span>2 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" aria-label="Remove Amateur Demolitionist"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="3 copies in deck">3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Amateur Demolitionist"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card in-deck"><button type="button" class="card-art" aria-label="View Ancient Warmonger"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8ba05afcfbe6901fb4bdb736d5e61656a551f668-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Ancient Warmonger" loading="eager"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Ancient Warmonger"> Ancient Warmonger</button><span class="card-meta">unit <span>5 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" aria-label="Remove Ancient Warmonger"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="3 copies in deck">3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Ancient Warmonger"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card in-deck"><button type="button" class="card-art" aria-label="View Angler Beast"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/68872e2119146768f8fa113376876fa64699297d-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Angler Beast" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Angler Beast"> Angler Beast</button><span class="card-meta">unit <span>5 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" aria-label="Remove Angler Beast"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="3 copies in deck">3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Angler Beast"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Angler Wyrm"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e805eba9add03fd3e1b1601b15c12a46fd403282-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Angler Wyrm" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Angler Wyrm"> Angler Wyrm</button><span class="card-meta">unit <span>8 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Angler Wyrm"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Angler Wyrm"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card in-deck"><button type="button" class="card-art" aria-label="View Annie, Fiery"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/532d75dc36a16eb5954253a77366fcceac7aec62-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Annie, Fiery" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Annie, Fiery"> Annie, Fiery</button><span class="card-meta">unit <span>5 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" aria-label="Remove Annie, Fiery"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="3 copies in deck">3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Annie, Fiery"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card in-deck"><button type="button" class="card-art" aria-label="View Annie, Stubborn"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44eb968cf0c54e75970588b69eef5c5f5ccc9b24-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Annie, Stubborn" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Annie, Stubborn"> Annie, Stubborn</button><span class="card-meta">unit <span>4 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" aria-label="Remove Annie, Stubborn"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="3 copies in deck">3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Annie, Stubborn"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card in-deck"><button type="button" class="card-art" aria-label="View Arena Kingpin"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/db48f8c1da0e4f9804ae94398f0864859db0002a-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Arena Kingpin" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Arena Kingpin"> Arena Kingpin</button><span class="card-meta">unit <span>5 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" aria-label="Remove Arena Kingpin"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="1 copies in deck">1</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Arena Kingpin"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Armed Assailant"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/1debdef1d45f7b2a452951db39674aeb01a8dc2b-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Armed Assailant" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Armed Assailant"> Armed Assailant</button><span class="card-meta">unit <span>6 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Armed Assailant"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Armed Assailant"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Baccai Reaper"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14c473be38b3ec40503f44555db9a4168a45bfb4-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Baccai Reaper" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Baccai Reaper"> Baccai Reaper</button><span class="card-meta">unit <span>3 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Baccai Reaper"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Baccai Reaper"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Baccai Sandspinner"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d8abab7f0df7c8ec9fff8c8dfa71c732e1ce2e6a-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Baccai Sandspinner" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Baccai Sandspinner"> Baccai Sandspinner</button><span class="card-meta">unit <span>6 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Baccai Sandspinner"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Baccai Sandspinner"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Baron Nashor"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/59946969e8d21869c3ffe801a3ffbdd8165a873f-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Baron Nashor" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Baron Nashor"> Baron Nashor</button><span class="card-meta">unit <span>10 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Baron Nashor"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Baron Nashor"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Battering Ram"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5661f07778201b236b014a6078003cde9af57cdd-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Battering Ram" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Battering Ram"> Battering Ram</button><span class="card-meta">unit <span>5 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Battering Ram"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Battering Ram"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Beast Below"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d27a56111c68c651099d7b73b22a54a825458857-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Beast Below" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Beast Below"> Beast Below</button><span class="card-meta">unit <span>7 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Beast Below"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Beast Below"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Bedeviling Stranger"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d112a706fe957e5cea58ea1e4366ac02e3ba292b-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Bedeviling Stranger" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Bedeviling Stranger"> Bedeviling Stranger</button><span class="card-meta">unit <span>2 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Bedeviling Stranger"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Bedeviling Stranger"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Bewitching Spirit"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a771917dea98b137c3f4a13e4967dccf9ee445e5-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Bewitching Spirit" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Bewitching Spirit"> Bewitching Spirit</button><span class="card-meta">unit <span>3 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Bewitching Spirit"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Bewitching Spirit"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Black Market Broker"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f167c95cea17981f20b767ff81c180aab8a383e2-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Black Market Broker" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Black Market Broker"> Black Market Broker</button><span class="card-meta">unit <span>3 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Black Market Broker"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Black Market Broker"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Blade Twirler"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b222082d5d38630c4d2542ed24c0442881e3de18-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Blade Twirler" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Blade Twirler"> Blade Twirler</button><span class="card-meta">unit <span>4 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Blade Twirler"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Blade Twirler"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Blast Corps Cadet"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9efe5a8322a90822650ff18578cd5e1a8561fac5-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Blast Corps Cadet" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Blast Corps Cadet"> Blast Corps Cadet</button><span class="card-meta">unit <span>2 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Blast Corps Cadet"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Blast Corps Cadet"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Blazing Scorcher"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/15ed971e4029a92b362a81ccadf309fb81e40b81-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Blazing Scorcher" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Blazing Scorcher"> Blazing Scorcher</button><span class="card-meta">unit <span>5 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Blazing Scorcher"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Blazing Scorcher"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Brazen Buccaneer"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d481971f7560e7235e7d6934767da18daa019eff-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Brazen Buccaneer" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Brazen Buccaneer"> Brazen Buccaneer</button><span class="card-meta">unit <span>6 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Brazen Buccaneer"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Brazen Buccaneer"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Brynhir Thundersong"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44e805aa0f2928acf1156eef692403df319b333a-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Brynhir Thundersong" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Brynhir Thundersong"> Brynhir Thundersong</button><span class="card-meta">unit <span>6 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Brynhir Thundersong"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Brynhir Thundersong"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><article class="catalog-card"><button type="button" class="card-art" aria-label="View Bushwhack Trap"><img width="320" height="447" decoding="async" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/120762e23a599ee14d3f88856fcf707154338fb0-744x1039.png?accountingTag=RB&amp;w=320&amp;auto=format&amp;q=82" alt="Bushwhack Trap" loading="lazy"><span class="image-fallback">Image unavailable</span><!----></button><div class="card-caption"><button type="button" class="card-name" title="Bushwhack Trap"> Bushwhack Trap</button><span class="card-meta">unit <span>1 energy</span></span></div><div class="card-add-row"><!----><button type="button" class="icon-button" disabled="" aria-label="Remove Bushwhack Trap"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span aria-label="0 copies in deck">0</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add Bushwhack Trap"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button><!----></div></article><!----></div><!----></div><div class="pagination"><span>1 to 24 of 186</span><div><button type="button" aria-label="Previous page" class="icon-button" disabled=""><app-icon name="left" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m15 6-6 6 6 6"></path></svg></app-icon></button><span>1 / 8</span><button type="button" aria-label="Next page" class="icon-button"><app-icon name="right" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m9 6 6 6-6 6"></path></svg></app-icon></button></div></div></section><app-deck-panel><aside aria-label="Current deck" class="deck-panel"><div class="deck-heading"><div><label for="deck-name" class="sr-only">Deck name</label><input id="deck-name" maxlength="80" class="deck-name"><span class="draft-label">Working draft</span></div><div class="compact-actions"><button type="button" aria-label="Undo last deck change" title="Undo" class="icon-button" disabled=""><app-icon name="undo" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M3 10h10a6 6 0 0 1 0 12M3 10l5-5M3 10l5 5"></path></svg></app-icon></button><button type="button" aria-label="Redo deck change" title="Redo" class="icon-button" disabled=""><app-icon name="redo" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M21 10H11a6 6 0 0 0 0 12M21 10l-5-5M21 10l-5 5"></path></svg></app-icon></button></div></div><div class="deck-scroll"><div class="deck-identity"><button type="button" class="legend-art" aria-label="View Loose Cannon"><img width="64" height="88" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f57c14381b126e9f5a7b5bc4913151cb24c14fc3-744x1039.png?accountingTag=RB&amp;w=160&amp;auto=format&amp;q=82" alt="Loose Cannon"></button><!----><div class="identity-fields"><label for="legend-select">Legend</label><select id="legend-select" class="ng-untouched ng-pristine ng-valid"><option value="">Choose a legend</option><option value="rad-153-167">Evelynn / Agony's Embrace</option><option value="unl-189-219">Lillia / Bashful Bloom</option><option value="sfd-203-221">Sivir / Battle Mistress</option><option value="sfd-195-221">Irelia / Blade Dancer</option><option value="ogn-257-298">Lee Sin / Blind Monk</option><option value="unl-185-219">Pyke / Bloodharbor Ripper</option><option value="ogn-267-298">Miss Fortune / Bounty Hunter</option><option value="rad-139-167">Ekko / Boy Who Shattered Time</option><option value="ven-141-166">Renekton / Butcher of the Sands</option><option value="sfd-201-221">Renata Glasc / Chem-Baroness</option><option value="ven-145-166">Nasus / Curator of the Sands</option><option value="ogs-017-024">Annie / Dark Child, Starter</option><option value="ogn-247-298">Kai'Sa / Daughter of the Void</option><option value="unl-199-219">LeBlanc / Deceiver</option><option value="ven-149-166">Jayce / Defender of Tomorrow</option><option value="sfd-197-221">Azir / Emperor of the Sands</option><option value="rad-155-167">Jarvan IV / Exemplar of Demacia</option><option value="ven-147-166">Shen / Eye of Twilight</option><option value="sfd-189-221">Ornn / Fire Below the Mountain</option><option value="unl-193-219">Vex / Gloomist</option><option value="sfd-185-221">Draven / Glorious Executioner</option><option value="sfd-205-221">Fiora / Grand Duelist</option><option value="sfd-193-221">Jax / Grandmaster at Arms</option><option value="unl-195-219">Ivern / Green Father</option><option value="ogn-253-298">Darius / Hand of Noxus</option><option value="ven-155-166">Kennen / Heart of the Tempest</option><option value="ogn-265-298">Viktor / Herald of the Arcane</option><option value="rad-141-167">Ziggs / Hexplosives Expert</option><option value="rad-143-167">Mordekaiser / Iron Revenant</option><option value="unl-203-219">Poppy / Keeper of the Hammer</option><option value="rad-145-167">Orianna / Lady of Clockwork</option><option value="ogs-021-024">Lux / Lady of Luminosity, Starter</option><option value="ogn-251-298">Jinx / Loose Cannon</option><option value="ven-143-166">Zed / Master of Shadows</option><option value="ven-153-166">Ambessa / Matriarch of War</option><option value="sfd-181-221">Rumble / Mechanized Menace</option><option value="ogs-023-024">Garen / Might of Demacia, Starter</option><option value="ogn-255-298">Ahri / Nine-Tailed Fox</option><option value="unl-187-219">Vi / Piltover Enforcer</option><option value="rad-147-167">K'Sante / Pride of Nazumah</option><option value="unl-183-219">Rengar / Pridestalker</option><option value="sfd-199-221">Ezreal / Prodigal Explorer</option><option value="sfd-183-221">Lucian / Purifier</option><option value="ogn-261-298">Leona / Radiant Dawn</option><option value="ogn-249-298">Volibear / Relentless Storm</option><option value="ven-139-166">Akali / Rogue Assassin</option><option value="unl-197-219">Diana / Scorn of the Moon</option><option value="ven-151-166">Mel / Soul's Reflection</option><option value="rad-151-167">Seraphine / Starry-Eyed Songstress</option><option value="ogn-263-298">Teemo / Swift Scout</option><option value="ogn-269-298">Sett / The Boss</option><option value="rad-149-167">Riven / The Exile</option><option value="ogn-259-298">Yasuo / Unforgiven</option><option value="unl-181-219">Jhin / Virtuoso</option><option value="sfd-187-221">Rek'Sai / Void Burrower</option><option value="unl-201-219">Kha'Zix / Voidreaver</option><option value="ogs-019-024">Master Yi / Wuju Bladesman, Starter</option><option value="unl-191-219">Master Yi / Wuju Master</option><!----></select><label for="champion-select">Chosen champion</label><select id="champion-select" class="ng-untouched ng-pristine ng-valid"><option value="">Choose a champion</option><option value="ogn-030-298">Jinx, Demolitionist</option><option value="ogn-202-298">Jinx, Rebel</option><!----></select></div></div><div class="deck-domains"><span class="domain-tag" data-domain="fury">fury</span><span class="domain-tag" data-domain="chaos">chaos</span><!----><span class="muted">Constructed</span></div><!----><div aria-label="Deck sections" class="zone-tabs"><button type="button" class="selected" aria-pressed="true"> Main<span>40/40</span></button><button type="button" aria-pressed="false"> Runes<span>12/12</span></button><button type="button" aria-pressed="false"> Fields<span>3/3</span></button><button type="button" aria-pressed="false"> Side<span>0/10</span></button><!----></div><div aria-live="polite" aria-relevant="additions removals" class="deck-rows"><div class="deck-row"><span class="energy-value" title="Energy cost 1">1</span><button type="button" class="deck-row-name" title="Acceptable Losses"> Acceptable Losses <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Acceptable Losses"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Acceptable Losses"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 2">2</span><button type="button" class="deck-row-name" title="Abandon"> Abandon <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Abandon"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Abandon"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 2">2</span><button type="button" class="deck-row-name" title="Against the Odds"> Against the Odds <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Against the Odds"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Against the Odds"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 2">2</span><button type="button" class="deck-row-name" title="Amateur Demolitionist"> Amateur Demolitionist <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Amateur Demolitionist"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Amateur Demolitionist"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 2">2</span><button type="button" class="deck-row-name" title="An Offer You Can't Refuse"> An Offer You Can't Refuse <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one An Offer You Can't Refuse"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one An Offer You Can't Refuse"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 2">2</span><button type="button" class="deck-row-name" title="Angle Shot"> Angle Shot <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Angle Shot"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Angle Shot"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 3">3</span><button type="button" class="deck-row-name" title="Akali, Deadly Weapon"> Akali, Deadly Weapon <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Akali, Deadly Weapon"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Akali, Deadly Weapon"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 3">3</span><button type="button" class="deck-row-name" title="Jinx, Demolitionist"> Jinx, Demolitionist <span class="chosen-label">Chosen</span><!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Jinx, Demolitionist"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Jinx, Demolitionist"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 4">4</span><button type="button" class="deck-row-name" title="Annie, Stubborn"> Annie, Stubborn <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Annie, Stubborn"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Annie, Stubborn"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 5">5</span><button type="button" class="deck-row-name" title="Akali, Brash"> Akali, Brash <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Akali, Brash"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Akali, Brash"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 5">5</span><button type="button" class="deck-row-name" title="Ancient Warmonger"> Ancient Warmonger <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Ancient Warmonger"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Ancient Warmonger"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 5">5</span><button type="button" class="deck-row-name" title="Angler Beast"> Angler Beast <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Angler Beast"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Angler Beast"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 5">5</span><button type="button" class="deck-row-name" title="Annie, Fiery"> Annie, Fiery <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Annie, Fiery"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>3</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Annie, Fiery"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><div class="deck-row"><span class="energy-value" title="Energy cost 5">5</span><button type="button" class="deck-row-name" title="Arena Kingpin"> Arena Kingpin <!----></button><div class="quantity"><button type="button" class="icon-button" aria-label="Remove one Arena Kingpin"><app-icon name="minus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M5 12h14"></path></svg></app-icon></button><span>1</span><button type="button" class="icon-button" disabled="" title="Main deck is full." aria-label="Add one Arena Kingpin"><app-icon name="plus" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 5v14M5 12h14"></path></svg></app-icon></button></div></div><!----><!----></div><section aria-labelledby="curve-title" class="curve-section"><div class="section-label"><h3 id="curve-title">Energy curve</h3><span>3.2 average</span></div><div role="img" class="energy-chart" aria-label="Energy cost distribution: 0, 3, 15, 6, 3, 13, 0, 0"><div class="curve-column"><span class="curve-value"></span><div class="curve-well"><span class="curve-bar" style="transform: scaleY(0);"></span></div><span>0</span></div><div class="curve-column"><span class="curve-value">3</span><div class="curve-well"><span class="curve-bar" style="transform: scaleY(0.2);"></span></div><span>1</span></div><div class="curve-column"><span class="curve-value">15</span><div class="curve-well"><span class="curve-bar" style="transform: scaleY(1);"></span></div><span>2</span></div><div class="curve-column"><span class="curve-value">6</span><div class="curve-well"><span class="curve-bar" style="transform: scaleY(0.4);"></span></div><span>3</span></div><div class="curve-column"><span class="curve-value">3</span><div class="curve-well"><span class="curve-bar" style="transform: scaleY(0.2);"></span></div><span>4</span></div><div class="curve-column"><span class="curve-value">13</span><div class="curve-well"><span class="curve-bar" style="transform: scaleY(0.866667);"></span></div><span>5</span></div><div class="curve-column"><span class="curve-value"></span><div class="curve-well"><span class="curve-bar" style="transform: scaleY(0);"></span></div><span>6</span></div><div class="curve-column"><span class="curve-value"></span><div class="curve-well"><span class="curve-bar" style="transform: scaleY(0);"></span></div><span>7+</span></div><!----></div></section><details class="checks"><summary><span>Deck checks</span><span class="ready">All checks passed</span></summary><ul><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Champion legend</span><p>Loose Cannon</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Chosen champion</span><p>Jinx, Demolitionist</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Main deck</span><p>40 of 40 cards, including the chosen champion.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Rune deck</span><p>12 of 12 runes.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Battlefields</span><p>3 of 3 different battlefields.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Copy limit</span><p>Up to 3 of each name across main and sideboard.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Domain identity</span><p>Every card fits your legend’s domains.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Signature cards</span><p>0 of 3 signature cards across main and sideboard.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Constructed ban list</span><p>No cards on the recorded ban list.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Sideboard</span><p>0 of up to 10 cards.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Card placement</span><p>Cards are in the correct deck sections.</p></div></li><li class="passed"><app-icon _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="m5 12 4 4L19 6"></path></svg></app-icon><div><span>Special construction rules</span><p>No additional legend choices required.</p></div></li><!----></ul><p class="helper"> Basic Constructed checks. Card-specific exceptions may require review. <a href="https://playriftbound.com/en-us/rules-hub/" target="_blank" rel="noopener noreferrer">Official rules</a></p></details><details class="notes"><summary>Deck notes</summary><label for="deck-notes" class="sr-only">Deck notes</label><textarea id="deck-notes" rows="4" maxlength="4000" placeholder="Matchups, card choices, changes to try..."></textarea></details></div><div class="deck-footer"><button type="button" class="button"><app-icon name="download" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"></path></svg></app-icon>Export</button><button type="button" class="button primary"><app-icon name="save" _nghost-ng-c1659956372=""><svg _ngcontent-ng-c1659956372="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path _ngcontent-ng-c1659956372="" d="M4 3h13l4 4v14H3V3ZM7 3v6h10V3M7 21v-8h10v8"></path></svg></app-icon>Save deck </button></div></aside></app-deck-panel></div><!----><!----></div><!----><!----></app-builder><!----></main><!----></app-root><noscript><p>
+        This deck builder needs JavaScript. You can also browse the
+        <a href="https://playriftbound.com/en-us/card-gallery/">official Riftbound card gallery</a>.
+      </p></noscript>
+  <script src="main-QBORKJMN.js" type="module"></script><script>document.querySelectorAll('link[data-beasties-media]').forEach(function(l){l.media=l.getAttribute('data-beasties-media');l.removeAttribute('data-beasties-media')})</script>
+
+</body></html>
