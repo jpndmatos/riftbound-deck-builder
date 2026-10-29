@@ -6,7 +6,7 @@ An Angular 22 workbench for building Riftbound decks. Search the official card c
 
 ![Riftbound card browser and deck editor](docs/builder-dark.jpg)
 
-Includes energy curves, Constructed checks, undo and redo, saved decks, text exports and JSON backups. Filters stay in the URL. Decks stay in your browser. Light and dark themes are available.
+Includes energy curves, Constructed checks, undo and redo, saved decks, text exports and JSON backups. Filters stay in the URL. Decks stay in your browser. The charcoal workspace fits the window on desktop, tablet and mobile, with scrolling inside each panel.
 
 ## Development
 

@@ -1,4 +1,4 @@
-/* Hallmark | theme: console | console: graphite | genre: modern-minimal | scope: app | shape: app screen | signature: live Riftbound deck list beside original card art | modes: light+dark | copy: verbatim */
+/* Hallmark | theme: console | console: graphite | genre: modern-minimal | scope: app | shape: app screen | signature: live Riftbound deck list beside original card art | modes: dark | copy: verbatim */
 /* Official card and set names are preserved verbatim; Unleashed is a real set, not promotional UI copy. */
 /* Hallmark · answered F1 · original Riftbound card names retain their printed apostrophes for matching and export. */
 /* Hallmark | pre-emit critique: P4 H4 E4 S5 R4 V4 | weakest: density; kept filters compact and gave the working deck its own scroll region. */
@@ -21,9 +21,6 @@ html {
   background: var(--paper);
   scrollbar-color: var(--rule-strong) var(--paper);
   caret-color: var(--accent);
-}
-html[data-mode='light'] {
-  color-scheme: light;
 }
 body {
   font-family: var(--font-body);
