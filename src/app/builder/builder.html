@@ -152,25 +152,26 @@
                 <option value="name">Name</option>
                 <option value="energy">Energy</option>
               </select>
-              <div class="view-switch" role="group" aria-label="Card layout">
+              <div class="zoom-controls" role="group" aria-label="Card size">
                 <button
                   class="icon-button"
                   type="button"
-                  aria-label="Grid view"
-                  [attr.aria-pressed]="view() === 'grid'"
-                  [class.selected]="view() === 'grid'"
-                  (click)="view.set('grid')"
+                  aria-label="Zoom out cards"
+                  title="Smaller cards"
+                  [disabled]="columns() >= maxColumns()"
+                  (click)="resizeCards(-1)"
                 >
-                  <app-icon name="grid" /></button
-                ><button
+                  <app-icon name="zoom-out" />
+                </button>
+                <button
                   class="icon-button"
                   type="button"
-                  aria-label="List view"
-                  [attr.aria-pressed]="view() === 'list'"
-                  [class.selected]="view() === 'list'"
-                  (click)="view.set('list')"
+                  aria-label="Zoom in cards"
+                  title="Larger cards"
+                  [disabled]="columns() <= 1"
+                  (click)="resizeCards(1)"
                 >
-                  <app-icon name="list" />
+                  <app-icon name="zoom-in" />
                 </button>
               </div>
             </div>
@@ -185,7 +186,10 @@
               <button class="button" type="button" (click)="reset()">Reset filters</button>
             </div>
           } @else {
-            <div [class.card-grid]="view() === 'grid'" [class.card-list]="view() === 'list'">
+            <div
+              class="card-grid"
+              [style.grid-template-columns]="'repeat(' + columns() + ', minmax(0, 1fr))'"
+            >
               @for (card of visible(); track card.id) {
                 <article
                   class="catalog-card"

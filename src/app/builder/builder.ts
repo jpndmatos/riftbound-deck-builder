@@ -57,9 +57,23 @@ export class Builder {
     { initialValue: this.form.getRawValue() },
   );
   readonly zone = signal<Zone>('main');
-  readonly view = signal<'grid' | 'list'>(
-    this.route.snapshot.queryParamMap.get('view') === 'list' ? 'list' : 'grid',
+  readonly zoom = signal(this.readZoom(this.route.snapshot.queryParamMap.get('zoom')));
+  readonly availableWidth = signal(280);
+  readonly baseColumns = computed(() =>
+    Math.max(1, Math.floor((this.availableWidth() + 12) / 140)),
   );
+  readonly maxColumns = computed(() => Math.max(1, Math.floor((this.availableWidth() + 12) / 108)));
+  readonly columns = computed(() =>
+    Math.max(1, Math.min(this.maxColumns(), this.baseColumns() - this.zoom())),
+  );
+  resizeCards(direction: 1 | -1): void {
+    const next = Math.max(1, Math.min(this.maxColumns(), this.columns() - direction));
+    this.zoom.set(this.baseColumns() - next);
+  }
+  private readZoom(value: string | null): number {
+    const zoom = Number(value);
+    return Number.isFinite(zoom) ? Math.max(-32, Math.min(32, Math.round(zoom))) : 0;
+  }
   readonly mobileView = signal<'cards' | 'deck'>('cards');
   readonly filtersOpen = signal(false);
   readonly preview = signal<Card | null>(null);
@@ -117,11 +131,11 @@ export class Builder {
       };
       if (JSON.stringify(values) !== JSON.stringify(this.form.getRawValue()))
         this.form.patchValue(values);
-      this.view.set(params.get('view') === 'list' ? 'list' : 'grid');
+      this.zoom.set(this.readZoom(params.get('zoom')));
     });
     effect(() => {
       const filter = this.filter(),
-        view = this.view();
+        zoom = this.zoom();
       void this.router.navigate([], {
         relativeTo: this.route,
         replaceUrl: true,
@@ -132,7 +146,7 @@ export class Builder {
           set: filter.set === 'all' ? null : filter.set,
           sort: filter.sort === 'name' ? null : filter.sort,
           compatible: filter.compatible ? null : 'false',
-          view: view === 'grid' ? null : view,
+          zoom: zoom || null,
           page: null,
         },
       });
@@ -145,10 +159,24 @@ export class Builder {
     });
     afterRenderEffect(() => {
       this.filter();
-      this.view();
       this.store.legend();
       const root = this.results()?.nativeElement;
       if (root) root.scrollTop = 0;
+    });
+    afterRenderEffect((onCleanup) => {
+      const root = this.results()?.nativeElement;
+      if (!root) return;
+      const measure = () => {
+        const style = getComputedStyle(root);
+        const width =
+          root.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+        if (width > 0) this.availableWidth.set(width);
+      };
+      measure();
+      if (typeof ResizeObserver === 'undefined') return;
+      const observer = new ResizeObserver(measure);
+      observer.observe(root);
+      onCleanup(() => observer.disconnect());
     });
     afterRenderEffect((onCleanup) => {
       const root = this.results()?.nativeElement;

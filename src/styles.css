@@ -445,12 +445,12 @@ legend {
   color: var(--muted);
   min-height: 40px;
 }
-.view-switch {
+.zoom-controls {
   display: flex;
   align-items: center;
   gap: 2px;
 }
-.view-switch .icon-button {
+.zoom-controls .icon-button {
   width: 30px;
   min-width: 30px;
   height: 30px;
@@ -573,36 +573,6 @@ legend {
   color: var(--muted);
   font-size: 12px;
   white-space: normal;
-}
-
-.card-list {
-  display: grid;
-  gap: 0;
-}
-.card-list .catalog-card {
-  display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) 105px;
-  gap: 14px;
-  align-items: center;
-  padding: 10px 3px;
-  border-bottom: 1px solid var(--rule);
-}
-.card-list .card-caption {
-  padding: 0;
-}
-.card-list .card-name {
-  font-size: 14px;
-}
-.card-list .card-meta {
-  justify-content: flex-start;
-  gap: 12px;
-  font-size: 12px;
-}
-.card-list .card-add-row {
-  margin: 0;
-}
-.card-list .card-art {
-  border-radius: 3px;
 }
 
 .pagination {
@@ -1489,7 +1459,7 @@ h2 {
     width: 96px;
   }
   .icon-button,
-  .view-switch .icon-button,
+  .zoom-controls .icon-button,
   .pagination .icon-button,
   .quantity .icon-button,
   .card-add-row .icon-button,
@@ -2330,12 +2300,12 @@ input.deck-name {
   border-radius: 0;
   background: var(--clear);
 }
-.view-switch {
+.zoom-controls {
   gap: 0;
   border-left: 1px solid var(--rule);
   padding: 0;
 }
-.view-switch .icon-button {
+.zoom-controls .icon-button {
   width: 38px;
   min-width: 38px;
   height: 38px;
@@ -2343,7 +2313,7 @@ input.deck-name {
   border: 0;
   border-radius: 0;
 }
-.view-switch .icon-button app-icon {
+.zoom-controls .icon-button app-icon {
   width: 16px;
   height: 16px;
 }
@@ -2369,7 +2339,7 @@ input.deck-name {
     top: 14px;
   }
   .catalog-toolbar .filter-toggle,
-  .view-switch .icon-button {
+  .zoom-controls .icon-button {
     width: 44px;
     min-width: 44px;
     height: 44px;
@@ -2464,7 +2434,7 @@ input.deck-name {
 .results-controls {
   border-color: var(--clear);
 }
-.view-switch {
+.zoom-controls {
   border-left: 0;
 }
 .button:not(.primary) {
@@ -2552,7 +2522,4 @@ textarea {
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: right;
-}
-.card-list .card-collection {
-  text-align: left;
 }
