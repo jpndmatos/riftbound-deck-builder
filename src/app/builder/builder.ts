@@ -62,7 +62,7 @@ export class Builder {
   readonly baseColumns = computed(() =>
     Math.max(1, Math.floor((this.availableWidth() + 12) / 140)),
   );
-  readonly maxColumns = computed(() => Math.max(1, Math.floor((this.availableWidth() + 12) / 108)));
+  readonly maxColumns = computed(() => Math.max(1, Math.floor((this.availableWidth() + 12) / 116)));
   readonly columns = computed(() =>
     Math.max(1, Math.min(this.maxColumns(), this.baseColumns() - this.zoom())),
   );
