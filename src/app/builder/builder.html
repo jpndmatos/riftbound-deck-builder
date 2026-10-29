@@ -57,13 +57,21 @@
     </div>
   } @else {
     <div class="workspace-grid" [class.mobile-deck]="mobileView() === 'deck'">
+      @if (filtersOpen()) {
+        <button
+          class="filter-scrim"
+          type="button"
+          aria-label="Dismiss card filters"
+          (click)="filtersOpen.set(false); filterToggle.focus()"
+        ></button>
+      }
       <form
         class="filter-panel"
         [class.filters-open]="filtersOpen()"
         [formGroup]="form"
         id="card-filters"
         aria-label="Card filters"
-        (keydown.escape)="filtersOpen.set(false)"
+        (keydown.escape)="filtersOpen.set(false); filterToggle.focus()"
         (submit)="$event.preventDefault()"
       >
         <div class="filter-heading">
@@ -73,7 +81,7 @@
             class="icon-button filter-close"
             type="button"
             aria-label="Close card filters"
-            (click)="filtersOpen.set(false)"
+            (click)="filtersOpen.set(false); filterToggle.focus()"
           >
             <app-icon name="close" />
           </button>
@@ -124,6 +132,7 @@
         <div class="catalog-toolbar">
           <button
             class="icon-button filter-toggle"
+            #filterToggle
             type="button"
             [attr.aria-expanded]="filtersOpen()"
             aria-label="Toggle card filters"
