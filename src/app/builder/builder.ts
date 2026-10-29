@@ -69,6 +69,9 @@ export class Builder {
   readonly loadMarker = viewChild<ElementRef<HTMLElement>>('loadMarker');
   readonly domains = DOMAINS;
   readonly imageUrl = imageUrl;
+  readonly collections = computed(
+    () => new Map(this.catalog.data()?.sets.map((set) => [set.id, set.name]) ?? []),
+  );
   private filterKey = '';
   readonly types = ['all', 'unit', 'spell', 'gear', 'legend', 'rune', 'battlefield'];
   readonly indexed = computed(() =>

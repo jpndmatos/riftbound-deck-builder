@@ -2547,3 +2547,17 @@ textarea {
     min-height: 52px;
   }
 }
+
+.card-meta .card-type {
+  flex-shrink: 0;
+}
+.card-collection {
+  min-width: 0;
+  overflow: clip;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}
+.card-list .card-collection {
+  text-align: left;
+}

@@ -235,9 +235,11 @@
                           </span>
                         }
                       </span>
-                      <span>{{
-                        card.energy !== null ? card.energy + ' energy' : card.set
-                      }}</span></span
+                      <span
+                        class="card-collection"
+                        [title]="collections().get(card.set) ?? card.set"
+                        >{{ collections().get(card.set) ?? card.set }}</span
+                      ></span
                     >
                   </div>
                   <div class="card-add-row">
