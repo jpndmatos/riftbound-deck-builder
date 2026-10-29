@@ -221,20 +221,7 @@
                     >
                       {{ card.name }}</button
                     ><span class="card-meta"
-                      ><span class="card-type"
-                        >{{ card.type }}
-                        @if (card.domains.length) {
-                          <span
-                            class="card-domains"
-                            role="img"
-                            [attr.aria-label]="card.domains.join(', ')"
-                          >
-                            @for (domain of card.domains; track domain) {
-                              <app-domain-icon [name]="domain" />
-                            }
-                          </span>
-                        }
-                      </span>
+                      ><span class="card-type">{{ card.type }} </span>
                       <span
                         class="card-collection"
                         [title]="collections().get(card.set) ?? card.set"

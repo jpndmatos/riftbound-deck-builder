@@ -2440,18 +2440,13 @@ input.deck-name {
 .deck-domains {
   gap: 12px;
 }
-.card-type,
-.card-domains {
+.card-type {
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
 .card-meta .card-type {
   min-width: 0;
-}
-.card-domains app-domain-icon {
-  width: 12px;
-  height: 12px;
 }
 .workspace-grid {
   border: 0;
