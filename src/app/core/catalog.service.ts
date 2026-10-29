@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Catalog } from './models';
+import { CATALOG_URL } from './catalog-version';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
@@ -15,7 +16,7 @@ export class CatalogService {
   }
   load(): void {
     this.state.set('loading');
-    this.http.get<Catalog>('data/cards.json').subscribe({
+    this.http.get<Catalog>(CATALOG_URL).subscribe({
       next: (data) => {
         this.data.set(data);
         this.state.set('ready');

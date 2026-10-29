@@ -5,6 +5,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import catalog from '../../../public/data/cards.json';
 import { DeckPanel } from './deck-panel';
 import { DeckStore } from '../core/deck.store';
+import { CATALOG_URL } from '../core/catalog-version';
 describe('Deck setup controls', () => {
   it('shows selected identities when options arrive after the controls are mounted', () => {
     localStorage.clear();
@@ -14,7 +15,7 @@ describe('Deck setup controls', () => {
     });
     const fixture = TestBed.createComponent(DeckPanel);
     fixture.detectChanges();
-    TestBed.inject(HttpTestingController).expectOne('data/cards.json').flush(catalog);
+    TestBed.inject(HttpTestingController).expectOne(CATALOG_URL).flush(catalog);
     TestBed.tick();
     fixture.detectChanges();
     const store = TestBed.inject(DeckStore);

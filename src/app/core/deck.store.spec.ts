@@ -5,10 +5,27 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import catalogJson from '../../../public/data/cards.json';
 import { Catalog, Card, countZone } from './models';
 import { DeckStore } from './deck.store';
+import { CATALOG_URL } from './catalog-version';
 import { deckText, parseDeckFile, validateDeck } from './deck-rules';
 
 const catalog = catalogJson as Catalog;
 describe('Deck builder state and Constructed checks', () => {
+  it('preserves champion subtitles without treating region tags or signature owners as names', () => {
+    expect(catalog.cards.find((card) => card.name === 'Jinx, Demolitionist')?.championUnit).toBe(
+      true,
+    );
+    expect(catalog.cards.find((card) => card.name === 'Super Mega Death Rocket!')?.signature).toBe(
+      true,
+    );
+    expect(catalog.cards.find((card) => card.name === 'Heart of the Tempest')?.champion).toBe(
+      'Kennen',
+    );
+    expect(
+      catalog.cards
+        .filter((card) => card.type === 'legend')
+        .every((card) => card.champion && card.champion !== 'Yordle'),
+    ).toBe(true);
+  });
   let store: DeckStore;
   beforeEach(() => {
     localStorage.clear();
@@ -16,7 +33,7 @@ describe('Deck builder state and Constructed checks', () => {
       providers: [provideHttpClient(), provideHttpClientTesting()],
     });
     store = TestBed.inject(DeckStore);
-    TestBed.inject(HttpTestingController).expectOne('data/cards.json').flush(catalog);
+    TestBed.inject(HttpTestingController).expectOne(CATALOG_URL).flush(catalog);
     TestBed.tick();
   });
   it('loads a complete practice deck using real catalog cards', () => {

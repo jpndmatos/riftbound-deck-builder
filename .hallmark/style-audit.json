@@ -1,0 +1,673 @@
+{
+  "summary": {
+    "fails": 0,
+    "reflex": 0,
+    "warns": 0,
+    "waived": 73,
+    "rejected": 0,
+    "answered": 0,
+    "dismissed": 0,
+    "notes": 0,
+    "files": 1,
+    "render": "off"
+  },
+  "findings": [
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 128,
+      "evidence": "padding: 0 10px (off the 4px scale) on input:not([type='radio']):not([type='checkbox']), select",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 136,
+      "evidence": "padding-right: 22px (off the 4px scale) on select",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 163,
+      "evidence": "margin-bottom: 10px (off the 4px scale) on legend",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 187,
+      "evidence": "padding: 10px (off the 4px scale) on .skip-link",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 283,
+      "evidence": "gap: 14px (off the 4px scale) on .full-state",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 310,
+      "evidence": "padding: 14px 0 (off the 4px scale) on .workspace-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 355,
+      "evidence": "gap: 7px (off the 4px scale) on .check-label",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 360,
+      "evidence": "margin-top: 3px (off the 4px scale) on .check-label input",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 364,
+      "evidence": "gap: 3px (off the 4px scale) on .type-filters",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 369,
+      "evidence": "gap: 9px (off the 4px scale) on .type-filters label",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 388,
+      "evidence": "margin-bottom: 9px (off the 4px scale) on .filter-fields select",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 401,
+      "evidence": "margin: 10px 0 (off the 4px scale) on .filter-note p",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 416,
+      "evidence": "gap: 10px (off the 4px scale) on .catalog-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 417,
+      "evidence": "padding: 16px 18px 6px (off the 4px scale) on .catalog-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 434,
+      "evidence": "padding-left: 35px (off the 4px scale) on .search-field input",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 443,
+      "evidence": "padding: 0 18px 8px (off the 4px scale) on .results-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 464,
+      "evidence": "padding: 4px 18px 16px (off the 4px scale) on .catalog-scroll",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 471,
+      "evidence": "gap: 22px 16px (off the 4px scale) on .card-grid",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 522,
+      "evidence": "padding-top: 7px (off the 4px scale) on .card-caption",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 561,
+      "evidence": "padding: 0 6px (off the 4px scale) on .card-add",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 583,
+      "evidence": "padding: 3px 6px (off the 4px scale) on .banned-label",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 594,
+      "evidence": "gap: 14px (off the 4px scale) on .card-list .catalog-card",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 596,
+      "evidence": "padding: 10px 3px (off the 4px scale) on .card-list .catalog-card",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 625,
+      "evidence": "padding: 6px 18px (off the 4px scale) on .pagination",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 633,
+      "evidence": "gap: 6px (off the 4px scale) on .pagination > div",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 658,
+      "evidence": "padding: 16px 14px 12px (off the 4px scale) on .deck-heading",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 698,
+      "evidence": "gap: 10px (off the 4px scale) on .deck-identity",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 699,
+      "evidence": "padding: 0 14px 12px (off the 4px scale) on .deck-identity",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 718,
+      "evidence": "gap: 5px (off the 4px scale) on .identity-fields",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 728,
+      "evidence": "padding-left: 7px (off the 4px scale) on .identity-fields select",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 733,
+      "evidence": "gap: 6px (off the 4px scale) on .deck-domains",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 734,
+      "evidence": "padding: 0 14px 14px (off the 4px scale) on .deck-domains",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 742,
+      "evidence": "gap: 6px (off the 4px scale) on .domain-labels",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 743,
+      "evidence": "margin: 18px 0 (off the 4px scale) on .domain-labels",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 746,
+      "evidence": "padding: 2px 6px (off the 4px scale) on .domain-tag",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 756,
+      "evidence": "padding-inline: 10px (off the 4px scale) on .zone-tabs",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 765,
+      "evidence": "gap: 3px (off the 4px scale) on .zone-tabs button",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 769,
+      "evidence": "padding: 5px 0 (off the 4px scale) on .zone-tabs button",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 789,
+      "evidence": "gap: 7px (off the 4px scale) on .deck-row",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 809,
+      "evidence": "padding: 6px 0 (off the 4px scale) on .deck-row-name",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 841,
+      "evidence": "padding: 36px 10px (off the 4px scale) on .empty-section",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 858,
+      "evidence": "gap: 10px (off the 4px scale) on .section-label",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 870,
+      "evidence": "gap: 10px (off the 4px scale) on .energy-chart",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 879,
+      "evidence": "gap: 5px (off the 4px scale) on .curve-column",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 913,
+      "evidence": "gap: 10px (off the 4px scale) on .checks summary, .notes summary",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 926,
+      "evidence": "margin-left: 5px (off the 4px scale) on .checks summary::after, .notes summary::after",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 948,
+      "evidence": "padding: 9px 0 (off the 4px scale) on .checks li",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 976,
+      "evidence": "padding: 12px 14px (off the 4px scale) on .deck-footer",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 993,
+      "evidence": "gap: 14px (off the 4px scale) on .inline-notice, .storage-warning, .delete-notice",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1049,
+      "evidence": "margin-top: 10px (off the 4px scale) on .saved-heading p",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1060,
+      "evidence": "padding: 18px 22px (off the 4px scale) on .saved-row",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1106,
+      "evidence": "gap: 6px (off the 4px scale) on .saved-row-actions",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1145,
+      "evidence": "gap: 26px (off the 4px scale) on .preview-layout",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1155,
+      "evidence": "padding-top: 18px (off the 4px scale) on .preview-copy",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1169,
+      "evidence": "margin: 18px 0 (off the 4px scale) on .rules-text",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1174,
+      "evidence": "gap: 14px (off the 4px scale) on .card-facts",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1183,
+      "evidence": "margin-top: 3px (off the 4px scale) on .card-facts dd",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1187,
+      "evidence": "margin: 0 6px 10px 0 (off the 4px scale) on .preview-copy > .button",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1197,
+      "evidence": "margin-bottom: 18px (off the 4px scale) on .dialog-heading",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1214,
+      "evidence": "gap: 3px (off the 4px scale) on .segmented",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1215,
+      "evidence": "padding: 3px (off the 4px scale) on .segmented",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1236,
+      "evidence": "gap: 10px (off the 4px scale) on .dialog-actions",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1249,
+      "evidence": "margin-top: 10px (off the 4px scale) on .transfer-dialog .helper",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1290,
+      "evidence": "padding-inline: 14px (off the 4px scale) on .catalog-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1291,
+      "evidence": "gap: 6px (off the 4px scale) on .catalog-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1294,
+      "evidence": "padding-inline: 14px (off the 4px scale) on .catalog-scroll",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1298,
+      "evidence": "gap: 18px 14px (off the 4px scale) on .card-grid",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1309,
+      "evidence": "gap: 10px (off the 4px scale) on .workspace-title",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1318,
+      "evidence": "padding-inline: 9px (off the 4px scale) on .toolbar-actions .button",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1374,
+      "evidence": "padding-inline: 14px (off the 4px scale) on .catalog-scroll",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1377,
+      "evidence": "padding-inline: 14px (off the 4px scale) on .results-toolbar",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1409,
+      "evidence": "gap: 18px (off the 4px scale) on .saved-heading",
+      "fix": "Use the 4px spacing scale"
+    },
+    {
+      "gate": "24b",
+      "grade": "WAIVED",
+      "tier": "reflex",
+      "file": "src\\styles.css",
+      "line": 1439,
+      "evidence": "padding: 22px 18px (off the 4px scale) on .card-dialog, .transfer-dialog",
+      "fix": "Use the 4px spacing scale"
+    }
+  ]
+}
