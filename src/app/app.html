@@ -1,0 +1,8 @@
+<a class="skip-link" href="#workspace">Skip to workspace</a>
+<header class="app-header">
+<a class="brand" routerLink="/builder" aria-label="Riftbound deck builder"><app-icon name="cards" /><span>Riftbound <span class="brand-sub">decks</span></span></a>
+<nav aria-label="Main navigation"><a routerLink="/builder" routerLinkActive="current">Builder</a><a routerLink="/decks" routerLinkActive="current">Saved decks <span class="nav-count">{{ store.saved().length }}</span></a></nav>
+<div class="header-end"><span class="local-label">Saved on this device</span><button class="icon-button" type="button" (click)="toggleTheme()" [attr.aria-label]="mode() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'" [title]="mode() === 'dark' ? 'Light theme' : 'Dark theme'"><app-icon [name]="mode() === 'dark' ? 'sun' : 'moon'" /></button></div>
+</header>
+<main id="workspace" tabindex="-1"><router-outlet /></main>
+@if (store.storageError()) { <div class="storage-warning" role="alert">{{ store.storageError() }}</div> }

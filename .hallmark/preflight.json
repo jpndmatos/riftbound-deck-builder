@@ -1,0 +1,23 @@
+{
+  "scope": "app",
+  "material": "Official card gallery fetched 2026-10-29: 1078 unique cards from 1408 printings.",
+  "preserved": [
+    "Original card art and text",
+    "Poppins requested by user",
+    "Dark and light modes",
+    "Compact tool layout"
+  ],
+  "introduced": [
+    "Angular 22",
+    "Standalone zoneless components",
+    "Signal-based deck state",
+    "Local saved decks and backups"
+  ],
+  "sources": [
+    "scripts/sync-catalog.mjs:2",
+    "public/data/cards.json:1"
+  ],
+  "theme": "console",
+  "fontOverride": "Poppins explicitly requested by user",
+  "scaffold": "Installed theme scaffold could not parse its header; equivalent token block authored manually."
+}
