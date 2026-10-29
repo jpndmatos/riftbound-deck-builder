@@ -1991,3 +1991,71 @@ app-decks {
     border-bottom: 1px solid var(--rule);
   }
 }
+
+/* Shared panel columns, control heights and alignment. */
+.workspace-grid {
+  grid-template-columns: var(--filter-width) minmax(0, 1fr) var(--deck-width);
+}
+.button,
+.icon-button,
+input:not([type='radio']):not([type='checkbox']),
+select,
+textarea,
+.card-add-row {
+  border-radius: var(--control-radius);
+}
+.catalog-controls {
+  min-height: 52px;
+  padding-inline: var(--panel-gutter);
+}
+.results-controls select {
+  height: 38px;
+}
+.catalog-scroll {
+  padding-inline: var(--panel-gutter);
+}
+.filter-panel {
+  padding: 8px var(--panel-gutter) 12px;
+}
+.filter-heading {
+  min-height: 36px;
+}
+.deck-heading {
+  min-height: 52px;
+  padding: 6px var(--panel-gutter);
+}
+input.deck-name {
+  height: 26px;
+  padding-block: 0;
+}
+.draft-label {
+  font-size: 10px;
+  line-height: 14px;
+}
+.deck-identity,
+.deck-footer {
+  padding-inline: var(--panel-gutter);
+}
+@media (max-width: 1100px) {
+  .workspace-grid {
+    grid-template-columns: minmax(0, 1fr) var(--deck-width);
+  }
+}
+@media (max-width: 800px) {
+  .workspace-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .catalog-controls {
+    padding-inline: var(--panel-gutter);
+  }
+  .results-controls select,
+  input.deck-name {
+    height: 44px;
+  }
+  .deck-heading {
+    padding-block: 6px;
+  }
+  .filter-heading {
+    min-height: 44px;
+  }
+}

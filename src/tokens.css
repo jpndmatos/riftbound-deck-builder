@@ -1,4 +1,8 @@
 :root {
+  --filter-width: 160px;
+  --deck-width: 320px;
+  --panel-gutter: 12px;
+  --control-radius: 4px;
   --paper: #101010;
   --surface: #191919;
   --panel: #141414;
@@ -27,4 +31,16 @@
   --clear: transparent;
   --selection: #51482c;
   --font-body: 'Poppins', sans-serif;
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --filter-width: 174px;
+    --deck-width: 340px;
+  }
+}
+@media (max-width: 1100px) {
+  :root {
+    --deck-width: 310px;
+  }
 }

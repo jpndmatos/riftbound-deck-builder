@@ -16,7 +16,7 @@ const paths: Record<string, string> = {
   upload: 'M12 16V4m-5 5 5-5 5 5M4 16v5h16v-5',
   copy: 'M9 9h12v12H9ZM15 9V3H3v12h6',
   save: 'M4 3h13l4 4v14H3V3ZM7 3v6h10V3M7 21v-8h10v8',
-  cards: 'M5 3h12v17H5ZM17 6h4v17H9v-3',
+  cards: 'M4 2h12v17H4ZM16 5h4v17H8v-3',
   filter: 'M4 6h16M7 12h10M10 18h4',
   grid: 'M3 3h7v7H3ZM14 3h7v7h-7ZM3 14h7v7H3ZM14 14h7v7h-7Z',
   list: 'M9 6h12M9 12h12M9 18h12M3 6h1M3 12h1M3 18h1',

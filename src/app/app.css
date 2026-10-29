@@ -278,3 +278,60 @@ main {
     font-size: 11px;
   }
 }
+
+/* The header shares the workspace columns and inset rhythm. */
+.app-header {
+  display: grid;
+  grid-template-columns: var(--filter-width) minmax(0, 1fr) var(--deck-width);
+  gap: 0;
+  padding-inline: 0;
+}
+.brand {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+.brand > app-icon {
+  width: 20px;
+  height: 20px;
+}
+.app-header nav {
+  padding-left: var(--panel-gutter);
+}
+.header-end {
+  width: 100%;
+  margin-left: 0;
+  justify-content: flex-end;
+  padding-inline: var(--panel-gutter);
+}
+@media (max-width: 1100px) {
+  .app-header {
+    display: flex;
+    gap: 12px;
+    padding-inline: 12px;
+  }
+  .brand {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+  .app-header nav {
+    padding-left: 0;
+  }
+  .header-end {
+    width: auto;
+    margin-left: auto;
+    padding-inline: 0;
+  }
+}
+@media (max-width: 800px) {
+  .app-header {
+    gap: 8px;
+    padding-inline: 8px;
+  }
+}
+@media (max-width: 360px) {
+  .app-header {
+    gap: 4px;
+  }
+}
