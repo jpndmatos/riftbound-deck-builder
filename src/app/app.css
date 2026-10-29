@@ -224,3 +224,57 @@ main {
     height: 48px;
   }
 }
+
+/* One navigation bar for the workspace and its actions. */
+.app-header {
+  gap: 20px;
+}
+.brand {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  justify-content: center;
+}
+.app-header nav {
+  gap: 24px;
+}
+.header-end {
+  gap: 8px;
+}
+@media (max-width: 800px) {
+  .app-header {
+    padding-inline: 8px;
+    gap: 8px;
+  }
+  .app-header nav {
+    gap: 16px;
+  }
+  .header-end {
+    gap: 0;
+  }
+  .header-end .button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    padding: 0;
+    border-color: var(--clear);
+    background: var(--clear);
+  }
+  .header-end .button:hover:not(:disabled) {
+    background: var(--hover);
+  }
+  .header-end .button span {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .app-header {
+    gap: 4px;
+  }
+  .app-header nav {
+    gap: 12px;
+  }
+  .app-header nav a {
+    font-size: 11px;
+  }
+}

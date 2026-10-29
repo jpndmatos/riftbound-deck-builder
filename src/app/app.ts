@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { DeckStore } from './core/deck.store';
 import { Icon } from './shared/icon';
@@ -15,4 +15,5 @@ export class App {
     document.getElementById('workspace')?.focus();
   }
   readonly store = inject(DeckStore);
+  readonly workspace = signal<{ importDeck(): void; newDeck(): void } | null>(null);
 }

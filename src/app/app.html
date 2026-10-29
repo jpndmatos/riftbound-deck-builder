@@ -1,17 +1,40 @@
 <a class="skip-link" href="#workspace" (click)="focusWorkspace($event)">Skip to workspace</a>
 <header class="app-header">
   <a class="brand" routerLink="/builder" aria-label="Riftbound deck builder"
-    ><app-icon name="cards" /><span>Riftbound <span class="brand-sub">decks</span></span></a
-  >
+    ><app-icon name="cards"
+  /></a>
   <nav aria-label="Main navigation">
-    <a routerLink="/builder" routerLinkActive="current">Builder</a
-    ><a routerLink="/decks" routerLinkActive="current"
+    <a routerLink="/builder" routerLinkActive="current" ariaCurrentWhenActive="page">Deck builder</a
+    ><a routerLink="/decks" routerLinkActive="current" ariaCurrentWhenActive="page"
       >Saved decks <span class="nav-count">{{ store.saved().length }}</span></a
     >
   </nav>
-  <div class="header-end"><span class="local-label">Saved on this device</span></div>
+  <div class="header-end toolbar-actions">
+    <button
+      class="button"
+      type="button"
+      aria-label="Import deck"
+      title="Import deck"
+      [disabled]="store.catalog.state() !== 'ready' || !workspace()"
+      (click)="workspace()?.importDeck()"
+    >
+      <app-icon name="upload" /><span>Import</span>
+    </button>
+    <button
+      class="button"
+      type="button"
+      aria-label="New deck"
+      title="New deck"
+      [disabled]="store.catalog.state() !== 'ready' || !workspace()"
+      (click)="workspace()?.newDeck()"
+    >
+      <app-icon name="plus" /><span>New deck</span>
+    </button>
+  </div>
 </header>
-<main id="workspace" tabindex="-1"><router-outlet /></main>
+<main id="workspace" tabindex="-1">
+  <router-outlet (activate)="workspace.set($event)" (deactivate)="workspace.set(null)" />
+</main>
 @if (store.storageError()) {
   <div class="storage-warning" role="alert">{{ store.storageError() }}</div>
 }

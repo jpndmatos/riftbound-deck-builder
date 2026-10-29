@@ -1,27 +1,5 @@
 <div class="builder-shell">
-  <div class="workspace-toolbar">
-    <div class="workspace-title">
-      <h1>Deck builder</h1>
-      <span class="muted">{{ catalog.cards().length || 'Loading' }} cards</span>
-    </div>
-    <div class="toolbar-actions">
-      <button
-        class="button"
-        type="button"
-        [disabled]="catalog.state() !== 'ready'"
-        (click)="transfer.set('import')"
-      >
-        <app-icon name="upload" /><span>Import</span></button
-      ><button
-        class="button"
-        type="button"
-        [disabled]="catalog.state() !== 'ready'"
-        (click)="newDeck()"
-      >
-        <app-icon name="plus" />New deck
-      </button>
-    </div>
-  </div>
+  <h1 class="sr-only">Deck builder</h1>
   <div class="mobile-workspace-tabs">
     <button
       type="button"

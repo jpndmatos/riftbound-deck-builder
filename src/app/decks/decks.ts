@@ -15,13 +15,6 @@ import { TransferDialog } from '../shared/transfer-dialog';
           <h1>Saved decks</h1>
           <p class="muted">Your lists stay in this browser. Export a JSON backup to keep a copy.</p>
         </div>
-        <div class="toolbar-actions">
-          <button class="button" type="button" (click)="importing.set(true)">
-            <app-icon name="upload" />Import</button
-          ><button class="button primary" type="button" (click)="create()">
-            <app-icon name="plus" />New deck
-          </button>
-        </div>
       </div>
       <div class="saved-list">
         @for (deck of store.saved(); track deck.id) {
@@ -117,7 +110,10 @@ export class Decks {
     this.store.duplicate(deck);
     this.back();
   }
-  create(): void {
+  importDeck(): void {
+    this.importing.set(true);
+  }
+  newDeck(): void {
     this.store.newDeck();
     this.back();
   }

@@ -180,6 +180,9 @@ export class Builder {
             : 'main',
     );
   }
+  importDeck(): void {
+    this.transfer.set('import');
+  }
   newDeck(): void {
     this.store.newDeck();
     this.reset();
