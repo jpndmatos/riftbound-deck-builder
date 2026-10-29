@@ -68,9 +68,6 @@ import { Icon } from './icon';
             <dd>{{ card().rarity }}</dd>
           </div>
         </dl>
-        @if (card().banned) {
-          <p class="error-text">Banned in Constructed in the recorded rules snapshot.</p>
-        }
       </div>
     </div>
     <footer class="preview-actions">

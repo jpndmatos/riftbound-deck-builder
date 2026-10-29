@@ -574,16 +574,7 @@ legend {
   font-size: 12px;
   white-space: normal;
 }
-.banned-label {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  background: var(--bad-bg);
-  color: var(--bad);
-  padding: 3px 6px;
-  border-radius: 3px;
-  font-size: 10px;
-}
+
 .card-list {
   display: grid;
   gap: 0;
@@ -613,9 +604,7 @@ legend {
 .card-list .card-art {
   border-radius: 3px;
 }
-.card-list .banned-label {
-  display: none;
-}
+
 .pagination {
   display: flex;
   align-items: center;

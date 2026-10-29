@@ -195,7 +195,9 @@
                   <button
                     class="card-art"
                     type="button"
-                    [attr.aria-label]="'View ' + card.name"
+                    [attr.aria-label]="
+                      'View ' + card.name + (card.banned ? ', banned in Constructed' : '')
+                    "
                     (click)="preview.set(card)"
                   >
                     <img
@@ -208,15 +210,13 @@
                       decoding="async"
                       (error)="imageError($event)"
                     /><span class="image-fallback">Image unavailable</span>
-                    @if (card.banned) {
-                      <span class="banned-label">Banned</span>
-                    }
                   </button>
                   <div class="card-caption">
                     <button
                       class="card-name"
                       type="button"
                       [title]="card.name"
+                      [attr.aria-label]="card.name + (card.banned ? ', banned in Constructed' : '')"
                       (click)="preview.set(card)"
                     >
                       {{ card.name }}</button
