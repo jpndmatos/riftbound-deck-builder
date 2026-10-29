@@ -185,3 +185,42 @@ main {
     height: 48px;
   }
 }
+
+/* Compact chrome leaves the working area to cards. */
+.app-header {
+  flex-basis: 52px;
+  height: 52px;
+  padding-inline: 16px;
+  gap: 32px;
+}
+.brand {
+  font-size: 15px;
+  gap: 8px;
+}
+.brand > app-icon {
+  width: 20px;
+  height: 20px;
+}
+@media (max-width: 800px) {
+  .app-header {
+    padding-inline: 12px;
+    gap: 20px;
+  }
+  .brand {
+    font-size: 14px;
+  }
+}
+@media (max-width: 360px) {
+  .app-header {
+    gap: 14px;
+  }
+  .brand {
+    font-size: 13px;
+  }
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .app-header {
+    flex-basis: 48px;
+    height: 48px;
+  }
+}

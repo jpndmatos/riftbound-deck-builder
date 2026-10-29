@@ -129,57 +129,59 @@
         </div>
       </form>
       <section class="catalog-panel" aria-label="Card browser">
-        <div class="catalog-toolbar">
-          <button
-            class="icon-button filter-toggle"
-            #filterToggle
-            type="button"
-            [attr.aria-expanded]="filtersOpen()"
-            aria-label="Toggle card filters"
-            aria-controls="card-filters"
-            (click)="filtersOpen.set(!filtersOpen())"
-          >
-            <app-icon name="filter" />
-          </button>
-          <div class="search-field">
-            <app-icon name="search" /><label class="sr-only" for="card-search">Search cards</label
-            ><input
-              id="card-search"
-              type="search"
-              placeholder="Search cards, text, champion..."
-              [formControl]="form.controls.q"
-              autocomplete="off"
-            />
+        <div class="catalog-controls">
+          <div class="catalog-toolbar">
+            <button
+              class="icon-button filter-toggle"
+              #filterToggle
+              type="button"
+              [attr.aria-expanded]="filtersOpen()"
+              aria-label="Toggle card filters"
+              aria-controls="card-filters"
+              (click)="filtersOpen.set(!filtersOpen())"
+            >
+              <app-icon name="filter" />
+            </button>
+            <div class="search-field">
+              <app-icon name="search" /><label class="sr-only" for="card-search">Search cards</label
+              ><input
+                id="card-search"
+                type="search"
+                placeholder="Search cards, text, champion..."
+                [formControl]="form.controls.q"
+                autocomplete="off"
+              />
+            </div>
           </div>
-        </div>
-        <div class="results-toolbar">
-          <span role="status">{{ filtered().length }} results</span>
-          <div class="results-controls">
-            <label class="sr-only" for="sort-cards">Sort cards</label
-            ><select id="sort-cards" [formControl]="form.controls.sort">
-              <option value="name">Name</option>
-              <option value="energy">Energy</option>
-            </select>
-            <div class="view-switch">
-              <button
-                class="icon-button"
-                type="button"
-                aria-label="Grid view"
-                [attr.aria-pressed]="view() === 'grid'"
-                [class.selected]="view() === 'grid'"
-                (click)="view.set('grid')"
-              >
-                <app-icon name="grid" /></button
-              ><button
-                class="icon-button"
-                type="button"
-                aria-label="List view"
-                [attr.aria-pressed]="view() === 'list'"
-                [class.selected]="view() === 'list'"
-                (click)="view.set('list')"
-              >
-                <app-icon name="list" />
-              </button>
+          <div class="results-toolbar">
+            <span role="status">{{ filtered().length }} results</span>
+            <div class="results-controls">
+              <label class="sr-only" for="sort-cards">Sort cards</label
+              ><select id="sort-cards" [formControl]="form.controls.sort">
+                <option value="name">Name</option>
+                <option value="energy">Energy</option>
+              </select>
+              <div class="view-switch">
+                <button
+                  class="icon-button"
+                  type="button"
+                  aria-label="Grid view"
+                  [attr.aria-pressed]="view() === 'grid'"
+                  [class.selected]="view() === 'grid'"
+                  (click)="view.set('grid')"
+                >
+                  <app-icon name="grid" /></button
+                ><button
+                  class="icon-button"
+                  type="button"
+                  aria-label="List view"
+                  [attr.aria-pressed]="view() === 'list'"
+                  [class.selected]="view() === 'list'"
+                  (click)="view.set('list')"
+                >
+                  <app-icon name="list" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

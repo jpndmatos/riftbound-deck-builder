@@ -1783,3 +1783,198 @@ app-decks {
     transform: none;
   }
 }
+
+/* A denser workbench, with touch dimensions preserved. */
+.workspace-toolbar {
+  min-height: 52px;
+  padding: 6px 16px;
+}
+.workspace-title {
+  gap: 12px;
+}
+.workspace-title h1 {
+  font-size: 18px;
+}
+.workspace-grid {
+  grid-template-columns: 160px minmax(0, 1fr) 320px;
+}
+.filter-panel {
+  padding: 14px 12px;
+  gap: 16px;
+}
+.type-filters {
+  gap: 0;
+}
+.filter-fields {
+  gap: 6px;
+}
+.filter-fields select {
+  margin-bottom: 4px;
+}
+.catalog-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 14px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--rule-subtle);
+}
+.catalog-toolbar {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+}
+.results-toolbar {
+  padding: 0;
+  gap: 12px;
+  min-height: 38px;
+  font-size: 11px;
+}
+.results-toolbar > span {
+  white-space: nowrap;
+}
+.results-controls {
+  gap: 6px;
+}
+.results-controls select {
+  width: 88px;
+  height: 34px;
+}
+.catalog-scroll {
+  padding: 10px 14px 12px;
+}
+.card-grid {
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 16px 12px;
+}
+.card-caption {
+  padding-top: 4px;
+}
+.card-name {
+  min-height: 24px;
+}
+.card-add-row {
+  margin-top: 5px;
+}
+.in-deck .card-art {
+  outline-offset: 2px;
+  outline-color: var(--rule-strong);
+}
+.card-art:hover {
+  outline-color: var(--accent);
+  outline-offset: 2px;
+}
+.deck-heading {
+  padding: 10px 12px 8px;
+}
+.deck-identity {
+  padding: 0 12px 8px;
+}
+.legend-art {
+  width: 50px;
+}
+.deck-domains {
+  padding-bottom: 8px;
+}
+.zone-tabs button {
+  min-height: 46px;
+  gap: 1px;
+}
+.deck-footer {
+  padding: 8px 12px;
+}
+.pagination {
+  min-height: 44px;
+  padding: 4px 14px;
+}
+.inline-notice {
+  top: 54px;
+}
+@media (min-width: 1600px) {
+  .workspace-grid {
+    grid-template-columns: 174px minmax(0, 1fr) 340px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  }
+}
+@media (max-width: 1100px) {
+  .workspace-grid {
+    grid-template-columns: minmax(0, 1fr) 310px;
+  }
+  .catalog-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 6px 12px 4px;
+  }
+  .catalog-toolbar {
+    flex: 0 0 auto;
+  }
+}
+@media (max-width: 800px) {
+  .workspace-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workspace-toolbar {
+    min-height: 52px;
+    padding: 4px 12px;
+  }
+  .workspace-title h1 {
+    font-size: 15px;
+    white-space: nowrap;
+  }
+  .workspace-toolbar .button {
+    padding-inline: 7px;
+  }
+  .catalog-controls {
+    gap: 0;
+    padding: 4px 10px 0;
+  }
+  .results-toolbar {
+    min-height: 44px;
+  }
+  .results-controls select {
+    height: 44px;
+    width: 96px;
+  }
+  .catalog-scroll {
+    padding: 6px 10px 10px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+    gap: 14px 12px;
+  }
+  .card-caption .card-name {
+    font-size: 12px;
+  }
+  .pagination {
+    min-height: 49px;
+    padding: 2px 10px;
+  }
+  .deck-heading {
+    padding-top: 8px;
+  }
+  .inline-notice {
+    top: 54px;
+  }
+}
+@media (max-width: 360px) {
+  .workspace-toolbar .button {
+    padding-inline: 6px;
+    font-size: 11px;
+    gap: 5px;
+  }
+  .workspace-title h1 {
+    font-size: 14px;
+  }
+}
+@media (max-width: 800px) and (max-height: 480px) and (orientation: landscape) {
+  .workspace-toolbar {
+    min-height: 48px;
+    padding-block: 2px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+}
